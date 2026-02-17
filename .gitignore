@@ -205,3 +205,19 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+# =========================
+# PURE (project-specific)
+# =========================
+
+# local db
+pure.db
+*.db
+*.sqlite
+*.sqlite3
+*.db-journal
+*.sqlite-journal
+*.db-wal
+*.db-shm
+.vscode/
+data/
