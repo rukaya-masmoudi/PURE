@@ -2,7 +2,7 @@
 
 All notable changes to PURE will be documented here.
 
-## [0.1.0] - 2026-02-17
+## [0.1.1] - 2026-02-17
 ### Added
 - SQLite "Studies Layer" schema (catalogs, topics, sessions, certifications)
 - Minimal seed data (DP-900 + Create ML Models)
@@ -17,3 +17,9 @@ All notable changes to PURE will be documented here.
 
 ### Fixed
 - README code fences for build command
+
+## [0.1.2] - 2026-02-18
+### Added
+- Start Here documentation (docs/start-here)
+- Query pack for Growth exploration (db/queries)
+- Improved README navigation structure
