@@ -9,11 +9,40 @@ This repo starts with one simple idea:
 
 ## Start here
 
-### What you can do in 2 minutes
-1) Build the local database
-2) Explore real study sessions and metrics (no fluff)
+Read:
 
-### Build the database (local)
+```bash
+docs/start-here/how-to-navigate.md
+```
+
+---
+
+## Build the database (local)
+
 ```bash
 python tools/build_db.py
 ```
+
+This creates:
+
+```bash
+db/pure.db
+```
+
+---
+
+## Explore insights
+
+Open db/pure.db in any SQLite client and run the queries inside:
+
+```bash
+db/queries/
+```
+
+You can explore:
+- Daily study metrics
+- Weekly hours
+- Monthly consistency
+- Topic focus
+- Energy vs difficulty
+- Technology tag distribution

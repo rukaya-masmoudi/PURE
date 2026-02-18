@@ -221,3 +221,4 @@ pure.db
 *.db-shm
 .vscode/
 data/
+.vs/
