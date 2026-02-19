@@ -12,13 +12,18 @@ There is data.
 
 ---
 
-## What exists today (v0.2.x)
+## What exists today
 
 - Studies Layer (SQLite)
-- Public vs Private visibility model
-- Real study sessions
-- Derived daily metrics
-- Rebuildable database (one command)
+  - Topics, study sessions, tags, certifications
+  - Public vs private visibility model
+  - Derived daily metrics
+
+- Life Layer (structural)
+  - Communities, cities, venues
+  - Events with date, location, and language
+  - My roles in each event (attendee, speaker, community-collaborator)
+  - One cover photo per event (metadata only)
 
 This is the foundation.
 
@@ -28,14 +33,46 @@ This is the foundation.
 
 You can explore:
 
-- How consistent I am
+- How consistent I am when studying
 - How many hours I invest per week
 - Which topics I focus on
-- My cognitive load (difficulty vs energy)
+- Where I show up in the community
+- In which events I participate and in which roles
 
 All of this is queryable.
-
 Nothing is decorative.
+
+---
+
+## How to explore Studies
+
+1. Build the database:
+
+```bash
+python tools/build_db.py
+```
+
+2. Open db/pure.db in your SQLite client.
+
+3. For Studies, run the queries in:
+
+db/queries/01_day_metrics.sql  
+db/queries/02_week_metrics.sql  
+db/queries/03_month_consistency.sql  
+db/queries/04_top_topics.sql  
+db/queries/05_energy_vs_difficulty.sql  
+db/queries/06_tags_focus.sql  
+
+---
+
+## How to explore Life
+
+With the same database (db/pure.db), you can also explore:
+
+db/queries/07_life_events_timeline.sql  
+db/queries/08_life_my_participation.sql  
+db/queries/09_life_speaker_contributions.sql  
+db/queries/10_life_events_with_covers.sql  
 
 ---
 
@@ -46,21 +83,12 @@ Nothing is decorative.
 - Search assistants
 - APIs
 - Dashboards
-- Community / Events / Projects layers
+- Cross-layer analytics (Studies ↔ Life)
 
 PURE grows phase by phase.
 
 ---
 
-## Quick start
+PURE demonstrates that learning is not collecting certifications.
 
-From the repository root:
-
-```bash
-python tools/build_db.py
-```
-
-Then open db/pure.db with any SQLite client
-and run the queries inside:
-
-db/queries/
+It is converting growth into a governed system.

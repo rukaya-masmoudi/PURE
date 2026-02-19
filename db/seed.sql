@@ -237,13 +237,13 @@ VALUES
 (13, 13, '2026-02-16 20:46:00', '2026-02-16 21:32:00', 46, 3, 3, NULL, 1, 1),
 (14, 14, '2026-02-16 21:45:00', '2026-02-16 22:32:00', 47, 5, 2, NULL, 1, 1),
 
+-- 2026-02-19
+(15, 15, '2026-02-19 19:33:00', '2026-02-19 20:27:00', 54, 4, 3, NULL, 1, 1),
+(16, 16, '2026-02-19 20:44:00', '2026-02-19 21:30:00', 46, 4, 3, NULL, 1, 1),
+
 -- =========================
 -- PLANNED
 -- =========================
-
--- 2026-02-19
-(15, 15, '2026-02-19 19:33:00', '2026-02-19 20:27:00', 54, 4, 3, NULL, 1, 2),
-(16, 16, '2026-02-19 20:44:00', '2026-02-19 21:30:00', 46, 4, 3, NULL, 1, 2),
 
 -- 2026-02-20
 (17, 17, '2026-02-20 17:05:00', '2026-02-20 18:10:00', 65, 4, 3, NULL, 1, 2),
@@ -271,3 +271,218 @@ VALUES
 (2, 'AZ-204', 'Microsoft Certified: Azure Developer Associate',          1, 3, 2, NULL),
 (3, 'DVA-C02', 'AWS Certified Developer – Associate',                    3, 3, 2, NULL),
 (4, 'AI-102',  'Microsoft Certified: Azure AI Engineer Associate',       1, 4, 2, NULL);
+
+-- =========================
+-- LIFE LAYER
+-- =========================
+
+-- Community
+DELETE FROM Community;
+
+INSERT INTO Community (community_id, name, description, website_url, visibility_id) VALUES
+(1, 'Codemotion España', 'Organiza meetups y encuentros para la comunidad tech en España.', 'https://community.codemotion.com/codemotion-espana', 1),
+(2, 'EmpleaTech', 'Foro de empleo tecnológico en Madrid con stands y agenda de charlas.', 'https://empleatech.es/', 1),
+(3, 'AzureBrains', 'Comunidad técnica Azure y AI en Madrid.', 'https://www.meetup.com/azurebrains/', 1),
+(4, 'Arcasiles Group', 'Diseñan y producen experiencias que conectan tecnología, cultura y comunidad con creatividad y actitud.', 'https://luma.com/soyngnfn?tk=dHq7fr', 1),
+(5, 'Meetup de InnoIT Consulting en Madrid', 'Grupo de meetups técnicos de InnoIT Consulting en Madrid centrados en IA, cloud y desarrollo.', 'https://www.meetup.com/es-ES/meetup-de-innoit-consulting-en-madrid/', 1);
+
+-- City + Venue
+DELETE FROM City;
+
+INSERT INTO City (city_id, name, region, country) VALUES
+(1, 'Madrid', NULL, 'Spain');
+
+DELETE FROM Venue;
+
+INSERT INTO Venue (venue_id, name, address, city_id, notes) VALUES
+(1, 'ILAB', 'C. de Bailén, 41, Centro, 28005 Madrid, Spain', 1, NULL),
+(2, 'La Nave', 'C. Cifuentes, 5, Villaverde, 28021 Madrid', 1, NULL),
+(3, 'NTT Data Spain – Novus Building', 'Cam. de la Fuente de la Mora, 1, Hortaleza, 28050 Madrid, Spain', 1, NULL),
+(4, 'Celonis SL', 'Pl. de Manuel Gómez-Moreno, 2, Tetuán, 28020 Madrid, Spain', 1, NULL),
+(5, 'Meet&Go', 'C. de Martín de Vargas, 23, Arganzuela, 28005 Madrid, Spain', 1, NULL);
+
+-- Event
+DELETE FROM Event;
+
+INSERT INTO Event (event_id, name, community_id, venue_id, starts_at, ends_at, language, external_url, visibility_id) VALUES
+(
+  1,
+  'CodeMeet after Tech– Donde la comunidad se encuentra',
+  1,
+  1,
+  '2026-02-18 18:15:00',
+  '2026-02-18 20:30:00',
+  'Spanish',
+  'https://community.codemotion.com/codemotion-espana/meetups/codemeet-after-tech-donde-la-comunidad-se-encuentra',
+  1
+),
+(
+  2,
+  'EmpleaTech 2026 (Edición Madrid)',
+  2,
+  2,
+  '2026-02-04 09:20:00',
+  '2026-02-04 14:00:00',
+  'Spanish',
+  'https://empleatech.es/agenda/',
+  1
+),
+(
+  3,
+  'Season of AI – MCP by AzureBrains',
+  3,
+  3,
+  '2026-01-29 18:30:00',
+  '2026-01-29 19:30:00',
+  'Spanish',
+  'https://www.meetup.com/azurebrains/events/312537177/',
+  1
+),
+(
+  4,
+  'Fintech CONF 2026',
+  4,
+  4,
+  '2026-01-28 18:45:00',
+  '2026-01-28 21:30:00',
+  'Spanish',
+  'https://luma.com/soyngnfn?tk=dHq7fr',
+  1
+),
+(
+  5,
+  'Con licencia para razonar: IA al estilo 007',
+  5,
+  5,
+  '2026-01-21 18:30:00',
+  '2026-01-21 20:30:00',
+  'Spanish',
+  'https://www.meetup.com/es-ES/meetup-de-innoit-consulting-en-madrid/events/312499540/',
+  1
+);
+
+-- Role catalog
+DELETE FROM Role;
+
+INSERT INTO Role (role_id, name, notes) VALUES
+(1, 'attendee',  'Attended the event'),
+(2, 'speaker',   'Spoke at the event'),
+(3, 'community-collaborator', 'Supported event promotion and community engagement');
+
+-- Your participation
+DELETE FROM EventParticipation;
+
+INSERT INTO EventParticipation (participation_id, person_name, event_id, role_id, notes, visibility_id) VALUES
+(1, 'Rukaya Masmoudi Messaoud', 1, 1, 'Attended as participant.', 1),
+(2, 'Rukaya Masmoudi Messaoud', 2, 2, 'Speaker with Patricia Rodríguez Vaquero.', 1),
+(3, 'Rukaya Masmoudi Messaoud', 3, 3, 'Supported promotion and community engagement for the meetup.', 1),
+(4, 'Rukaya Masmoudi Messaoud', 4, 1, 'Attended as participant.', 1),
+(5, 'Rukaya Masmoudi Messaoud', 5, 1, 'Attended as participant.', 1);
+
+-- Your contribution
+DELETE FROM Contribution;
+
+INSERT INTO Contribution (contribution_id, event_id, type, title, description, starts_at, ends_at, visibility_id) VALUES
+(
+  1,
+  2,
+  'talk',
+  'Ser visible para poder existir: Out in Tech, identidad, resiliencia y crecimiento profesional',
+  'Tech Career Stories Room (Sala 7) — Charla 5. Shared with Patricia Rodríguez Vaquero.',
+  '2026-02-04 11:40:00',
+  '2026-02-04 11:55:00',
+  1
+);
+
+-- Media assets
+DELETE FROM MediaAsset;
+
+INSERT INTO MediaAsset (asset_id, asset_type, taken_at, storage_ref, caption, visibility_id) VALUES
+(
+  1,
+  'PHOTO',
+  '2026-02-18 19:30:00',
+  'docs/assets/events/codemeet-after-tech-cover.jpg',
+  'Panel en CodeMeet after Tech (Codemotion España).',
+  1
+),
+(
+  2,
+  'PHOTO',
+  '2026-02-04 11:50:00',
+  'docs/assets/events/empleatech-2026-cover.jpg',
+  'Charla en EmpleaTech 2026 en La Nave (Madrid).',
+  1
+),
+(
+  3,
+  'PHOTO',
+  '2026-01-29 19:00:00',
+  'docs/assets/events/azurebrains-season-ai-mcp-cover.jpg',
+  'Presentación Season of AI – MCP by AzureBrains.',
+  1
+),
+(
+  4,
+  'PHOTO',
+  '2026-01-28 19:00:00',
+  'docs/assets/events/fintech-conf-2026-cover.jpg',
+  'Asistencia a Fintech CONF 2026 en las oficinas de Celonis (Madrid).',
+  1
+),
+(
+  5,
+  'PHOTO',
+  '2026-01-21 19:30:00',
+  'docs/assets/events/con-licencia-ia-007-cover.jpg',
+  'Meetup "Con licencia para razonar: IA al estilo 007" de InnoIT Consulting en Meet&Go (Madrid).',
+  1
+);
+
+-- Event media
+DELETE FROM EventMedia;
+
+INSERT INTO EventMedia (event_id, asset_id, is_cover) VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 1),
+(5, 5, 1);
+
+-- Posts
+DELETE FROM Post;
+
+INSERT INTO Post (
+  post_id,
+  platform,
+  url,
+  published_at,
+  title,
+  notes,
+  visibility_id
+) VALUES
+(
+  1,
+  'LinkedIn',
+  'https://www.linkedin.com/posts/rukaya-masmoudi_alcachofas-activity-7422911684425674752-jhbi?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI',
+  '2026-01-30 10:00:00',
+  'Post en LinkedIn sobre Fintech CONF 2026 (Arcasiles)',
+  'Publicación en LinkedIn comentando la experiencia en Fintech CONF 2026 organizado por Arcasiles en las oficinas de Celonis (Madrid).',
+  1
+),
+(
+  2,
+  'LinkedIn',
+  'https://www.linkedin.com/posts/rukaya-masmoudi_el-mi%C3%A9rcoles-estuve-en-el-meetup-con-licencia-activity-7421114622314704897-SYqr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI',
+  '2026-01-23 10:00:00',
+  'Post en LinkedIn sobre el meetup "Con licencia para razonar: IA al estilo 007"',
+  'Publicación en LinkedIn resumiendo la charla de Celeste Tania Sánchez Fresneda sobre agentes de IA al estilo James Bond en el meetup de InnoIT Consulting.',
+  1
+);
+
+-- Link Event ↔ Post
+DELETE FROM EventPost;
+
+INSERT INTO EventPost (event_id, post_id) VALUES
+(4, 1),
+(5, 2);
