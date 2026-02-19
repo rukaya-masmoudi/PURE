@@ -5,6 +5,20 @@ PRAGMA foreign_keys = ON;
 -- =========================
 DROP VIEW IF EXISTS v_day_metrics;
 
+-- Life (drop first due to FKs)
+DROP TABLE IF EXISTS EventMedia;
+DROP TABLE IF EXISTS MediaAsset;
+DROP TABLE IF EXISTS EventPost;
+DROP TABLE IF EXISTS Post;
+DROP TABLE IF EXISTS EventParticipation;
+DROP TABLE IF EXISTS Role;
+DROP TABLE IF EXISTS Contribution;
+DROP TABLE IF EXISTS Event;
+DROP TABLE IF EXISTS Venue;
+DROP TABLE IF EXISTS City;
+DROP TABLE IF EXISTS Community;
+
+-- Studies
 DROP TABLE IF EXISTS SessionTag;
 DROP TABLE IF EXISTS TopicTag;
 
@@ -242,6 +256,172 @@ CREATE TABLE CertificationAttempt (
 
 CREATE INDEX idx_cert_attempt_cert ON CertificationAttempt(certification_id);
 CREATE INDEX idx_cert_attempt_date ON CertificationAttempt(exam_date);
+
+-- =========================
+-- LIFE LAYER (Impact Block)
+-- =========================
+
+-- Community = organizer / group
+CREATE TABLE Community (
+  community_id  INTEGER PRIMARY KEY,
+  name          TEXT NOT NULL UNIQUE,
+  description   TEXT,
+  website_url   TEXT,
+  visibility_id INTEGER NOT NULL,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now')),
+
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id)
+);
+
+CREATE INDEX idx_community_visibility ON Community(visibility_id);
+
+-- City = reusable location dimension
+CREATE TABLE City (
+  city_id  INTEGER PRIMARY KEY,
+  name     TEXT NOT NULL,
+  region   TEXT,
+  country  TEXT NOT NULL,
+  UNIQUE(name, country)
+);
+
+-- Venue = reusable physical place
+CREATE TABLE Venue (
+  venue_id  INTEGER PRIMARY KEY,
+  name      TEXT NOT NULL,
+  address   TEXT,
+  city_id   INTEGER NOT NULL,
+  notes     TEXT,
+  UNIQUE(name, city_id),
+
+  FOREIGN KEY (city_id) REFERENCES City(city_id)
+);
+
+CREATE INDEX idx_venue_city ON Venue(city_id);
+
+-- Event = occurrence linked to Community + Venue
+CREATE TABLE Event (
+  event_id      INTEGER PRIMARY KEY,
+  name          TEXT NOT NULL,
+  community_id  INTEGER NOT NULL,
+  venue_id      INTEGER NOT NULL,
+
+  starts_at     TEXT NOT NULL,
+  ends_at       TEXT,
+  language      TEXT,
+  external_url  TEXT,
+
+  visibility_id INTEGER NOT NULL,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now')),
+
+  CHECK (ends_at IS NULL OR julianday(ends_at) >= julianday(starts_at)),
+
+  FOREIGN KEY (community_id)  REFERENCES Community(community_id),
+  FOREIGN KEY (venue_id)      REFERENCES Venue(venue_id),
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id)
+);
+
+CREATE INDEX idx_event_community ON Event(community_id);
+CREATE INDEX idx_event_venue     ON Event(venue_id);
+CREATE INDEX idx_event_starts    ON Event(starts_at);
+
+-- Role catalog (reusable)
+CREATE TABLE Role (
+  role_id INTEGER PRIMARY KEY,
+  name    TEXT NOT NULL UNIQUE,
+  notes   TEXT
+);
+
+-- EventParticipation
+CREATE TABLE EventParticipation (
+  participation_id INTEGER PRIMARY KEY,
+  person_name      TEXT NOT NULL,
+  event_id         INTEGER NOT NULL,
+  role_id          INTEGER NOT NULL,
+  notes            TEXT,
+
+  visibility_id    INTEGER NOT NULL,
+  created_at       TEXT NOT NULL DEFAULT (datetime('now')),
+
+  FOREIGN KEY (event_id)      REFERENCES Event(event_id) ON DELETE CASCADE,
+  FOREIGN KEY (role_id)       REFERENCES Role(role_id),
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id),
+
+  UNIQUE(person_name, event_id, role_id)
+);
+
+CREATE INDEX idx_participation_event ON EventParticipation(event_id);
+CREATE INDEX idx_participation_role  ON EventParticipation(role_id);
+
+-- Contribution
+CREATE TABLE Contribution (
+  contribution_id INTEGER PRIMARY KEY,
+  event_id        INTEGER NOT NULL,
+
+  type            TEXT NOT NULL,
+  title           TEXT NOT NULL,
+  description     TEXT,
+
+  starts_at       TEXT,
+  ends_at         TEXT,
+
+  visibility_id   INTEGER NOT NULL,
+  created_at      TEXT NOT NULL DEFAULT (datetime('now')),
+
+  CHECK (ends_at IS NULL OR starts_at IS NULL OR julianday(ends_at) >= julianday(starts_at)),
+
+  FOREIGN KEY (event_id)      REFERENCES Event(event_id) ON DELETE CASCADE,
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id)
+);
+
+CREATE INDEX idx_contribution_event ON Contribution(event_id);
+
+-- Posts
+CREATE TABLE Post (
+  post_id       INTEGER PRIMARY KEY,
+  platform      TEXT NOT NULL,
+  url           TEXT NOT NULL UNIQUE,
+  published_at  TEXT,
+  title         TEXT,
+  notes         TEXT,
+  visibility_id INTEGER NOT NULL,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now')),
+
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id)
+);
+
+-- Event ↔ Post link
+CREATE TABLE EventPost (
+  event_id INTEGER NOT NULL,
+  post_id  INTEGER NOT NULL,
+  PRIMARY KEY (event_id, post_id),
+
+  FOREIGN KEY (event_id) REFERENCES Event(event_id) ON DELETE CASCADE,
+  FOREIGN KEY (post_id)  REFERENCES Post(post_id)  ON DELETE CASCADE
+);
+
+-- Media assets
+CREATE TABLE MediaAsset (
+  asset_id      INTEGER PRIMARY KEY,
+  asset_type    TEXT NOT NULL,
+  taken_at      TEXT,
+  storage_ref   TEXT,
+  caption       TEXT,
+  visibility_id INTEGER NOT NULL,
+  created_at    TEXT NOT NULL DEFAULT (datetime('now')),
+
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id)
+);
+
+-- Event ↔ Media link
+CREATE TABLE EventMedia (
+  event_id  INTEGER NOT NULL,
+  asset_id  INTEGER NOT NULL,
+  is_cover  INTEGER NOT NULL DEFAULT 0 CHECK(is_cover IN (0,1)),
+  PRIMARY KEY (event_id, asset_id),
+
+  FOREIGN KEY (event_id) REFERENCES Event(event_id)       ON DELETE CASCADE,
+  FOREIGN KEY (asset_id) REFERENCES MediaAsset(asset_id)  ON DELETE CASCADE
+);
 
 -- =========================
 -- DERIVED METRICS
