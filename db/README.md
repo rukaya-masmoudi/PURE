@@ -66,8 +66,25 @@ Life exploration is supported by:
 - 09_life_speaker_contributions.sql — events where you speak
 - 10_life_events_with_covers.sql — events with their cover images
 
-No analytics or cross-layer joins are implemented yet.
+---
 
-This keeps the schema structural and honest:
-it describes where you show up and how you participate,
-without storing unnecessary data about other people.
+## Cross-layer calendar
+
+The calendar views combine Studies and Life by date:
+
+- View v_calendar_day_activity — one row per day, with:
+  - total_study_minutes
+  - total_events
+
+Queries:
+
+- 11_calendar_day_activity.sql — direct access to v_calendar_day_activity
+- 12_calendar_my_activity_detail.sql — same data with a human-readable label:
+  - study only
+  - events only
+  - study + events
+
+No additional analytics or joins beyond the calendar are implemented yet.
+
+This keeps the model simple and focused on a single question:
+on which days am I learning, showing up in the community, or both?
