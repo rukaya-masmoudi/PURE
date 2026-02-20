@@ -2,6 +2,24 @@
 
 All notable changes to PURE will be documented here.
 
+## [0.1.4] - 2026-02-20
+### Added
+- Cross-layer calendar view v_calendar_day_activity combining Studies and Life by date
+- Calendar query pack:
+  - 11_calendar_day_activity.sql
+  - 12_calendar_my_activity_detail.sql
+- Documentation updates for calendar exploration in:
+  - README
+  - db/README
+  - docs/start-here/how-to-navigate.md
+- PURE Map v1:
+  - docs/map/overview.md
+- Identity as data narrative:
+  - docs/identity/identity-as-data.md
+- README updates to:
+  - Route users through the map
+  - Clarify Identity, Growth, Impact, Calendar, and System scopes
+
 ## [0.1.3] - 2026-02-19
 ### Added
 - Life Layer structural schema (Community, City, Venue, Event)

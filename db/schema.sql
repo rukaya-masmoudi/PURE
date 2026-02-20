@@ -3,6 +3,7 @@ PRAGMA foreign_keys = ON;
 -- =========================
 -- DROP (safe rebuild)
 -- =========================
+DROP VIEW IF EXISTS v_calendar_day_activity;
 DROP VIEW IF EXISTS v_day_metrics;
 
 -- Life (drop first due to FKs)
@@ -422,6 +423,43 @@ CREATE TABLE EventMedia (
   FOREIGN KEY (event_id) REFERENCES Event(event_id)       ON DELETE CASCADE,
   FOREIGN KEY (asset_id) REFERENCES MediaAsset(asset_id)  ON DELETE CASCADE
 );
+
+-- =========================
+-- CROSS-LAYER METRICS (Studies + Life)
+-- =========================
+
+-- One row per day where there is either study activity or events (or both).
+-- Combines:
+--   - StudySession (DONE sessions)
+--   - Event (PUBLIC events)
+CREATE VIEW v_calendar_day_activity AS
+SELECT
+  day                           AS calendar_day,
+  SUM(study_minutes)            AS total_study_minutes,
+  SUM(event_count)              AS total_events
+FROM (
+  -- Study contribution
+  SELECT
+    date(started_at)            AS day,
+    SUM(duration_minutes)       AS study_minutes,
+    0                           AS event_count
+  FROM StudySession
+  WHERE status_id = 1
+  GROUP BY date(started_at)
+
+  UNION ALL
+
+  -- Event contribution
+  SELECT
+    date(starts_at)             AS day,
+    0                           AS study_minutes,
+    COUNT(*)                    AS event_count
+  FROM Event
+  WHERE visibility_id = 1
+  GROUP BY date(starts_at)
+)
+GROUP BY day
+ORDER BY day;
 
 -- =========================
 -- DERIVED METRICS

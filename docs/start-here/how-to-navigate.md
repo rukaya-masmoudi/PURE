@@ -25,6 +25,11 @@ There is data.
   - My roles in each event (attendee, speaker, community-collaborator)
   - One cover photo per event (metadata only)
 
+- Cross-layer calendar
+  - Days with study activity
+  - Days with events
+  - Days where both happen
+
 This is the foundation.
 
 ---
@@ -38,6 +43,7 @@ You can explore:
 - Which topics I focus on
 - Where I show up in the community
 - In which events I participate and in which roles
+- On which days learning and community activity overlap
 
 All of this is queryable.
 Nothing is decorative.
@@ -52,7 +58,7 @@ Nothing is decorative.
 python tools/build_db.py
 ```
 
-2. Open db/pure.db in your SQLite client.
+2. Open `db/pure.db` in your SQLite client.
 
 3. For Studies, run the queries in:
 
@@ -76,6 +82,15 @@ db/queries/10_life_events_with_covers.sql
 
 ---
 
+## How to explore the calendar (Studies + Life)
+
+Use:
+
+db/queries/11_calendar_day_activity.sql
+db/queries/12_calendar_my_activity_detail.sql
+
+---
+
 ## What is intentionally NOT here yet
 
 - AI agents
@@ -83,7 +98,7 @@ db/queries/10_life_events_with_covers.sql
 - Search assistants
 - APIs
 - Dashboards
-- Cross-layer analytics (Studies ↔ Life)
+- Rich cross-layer analytics (beyond the calendar views)
 
 PURE grows phase by phase.
 
