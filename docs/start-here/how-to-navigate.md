@@ -30,6 +30,18 @@ There is data.
   - Days with events
   - Days where both happen
 
+- Career & Roles Layer
+  - Organizations (companies and educational centers)
+  - Long-running engagements:
+    - education
+    - work
+    - volunteering
+    - (projects reserved for later)
+
+- ML-ready view (no ML inside PURE)
+  - One row per study session
+  - Enriched with calendar context (events that day)
+
 This is the foundation.
 
 ---
@@ -44,6 +56,8 @@ You can explore:
 - Where I show up in the community
 - In which events I participate and in which roles
 - On which days learning and community activity overlap
+- How a study session dataset can be prepared for ML experiments
+- How my education, work and volunteering form a single career timeline
 
 All of this is queryable.
 Nothing is decorative.
@@ -91,6 +105,31 @@ db/queries/12_calendar_my_activity_detail.sql
 
 ---
 
+## How to explore the ML-ready dataset
+
+If you want a tabular dataset of study sessions ready for external ML experiments:
+
+- View:
+  - v_ml_study_sessions
+
+- Query:
+
+  db/queries/13_ml_study_sessions_export.sql  
+
+This does not train any model inside PURE.
+It only prepares the data in a clean, reproducible way.
+
+---
+
+## How to explore Career & Roles
+
+Use:
+
+db/queries/14_career_timeline.sql  
+db/queries/15_career_active_engagements.sql  
+
+---
+
 ## What is intentionally NOT here yet
 
 - AI agents
@@ -98,7 +137,7 @@ db/queries/12_calendar_my_activity_detail.sql
 - Search assistants
 - APIs
 - Dashboards
-- Rich cross-layer analytics (beyond the calendar views)
+- Rich cross-layer analytics (beyond calendar and the ML-ready view)
 
 PURE grows phase by phase.
 

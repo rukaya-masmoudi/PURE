@@ -26,6 +26,11 @@ Today, Identity is visible through:
   - When I only study
   - When I only go to events
 
+- Career & Roles:
+  - Where I studied
+  - Where I have worked
+  - Where I contribute as a volunteer over time
+
 Identity is not a static description.
 It is a pattern across these layers.
 

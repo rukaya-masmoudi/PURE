@@ -241,21 +241,21 @@ VALUES
 (15, 15, '2026-02-19 19:33:00', '2026-02-19 20:27:00', 54, 4, 3, NULL, 1, 1),
 (16, 16, '2026-02-19 20:44:00', '2026-02-19 21:30:00', 46, 4, 3, NULL, 1, 1),
 
+-- 2026-02-20
+(17, 17, '2026-02-20 17:05:00', '2026-02-20 18:10:00', 65, 4, 3, NULL, 1, 1),
+(18, 18, '2026-02-20 18:18:00', '2026-02-20 19:03:00', 45, 4, 3, NULL, 1, 1),
+
+-- 2026-02-21
+(19, 19, '2026-02-21 13:06:00', '2026-02-21 13:56:00', 50, 4, 3, NULL, 1, 1),
+(20, 20, '2026-02-21 16:04:00', '2026-02-21 16:44:00', 40, 3, 3, NULL, 1, 1),
+
+-- 2026-02-22
+(21, 21, '2026-02-22 12:12:00', '2026-02-22 13:04:00', 52, 4, 3, NULL, 1, 1),
+(22, 22, '2026-02-22 13:16:00', '2026-02-22 13:58:00', 42, 4, 3, NULL, 1, 1),
+
 -- =========================
 -- PLANNED
 -- =========================
-
--- 2026-02-20
-(17, 17, '2026-02-20 17:05:00', '2026-02-20 18:10:00', 65, 4, 3, NULL, 1, 2),
-(18, 18, '2026-02-20 18:18:00', '2026-02-20 19:03:00', 45, 4, 3, NULL, 1, 2),
-
--- 2026-02-21
-(19, 19, '2026-02-21 13:06:00', '2026-02-21 13:56:00', 50, 4, 3, NULL, 1, 2),
-(20, 20, '2026-02-21 16:04:00', '2026-02-21 16:44:00', 40, 3, 3, NULL, 1, 2),
-
--- 2026-02-22
-(21, 21, '2026-02-22 12:12:00', '2026-02-22 13:04:00', 52, 4, 3, NULL, 1, 2),
-(22, 22, '2026-02-22 13:16:00', '2026-02-22 13:58:00', 42, 4, 3, NULL, 1, 2),
 
 -- 2026-02-23
 (23, 23, '2026-02-23 19:11:00', '2026-02-23 20:06:00', 55, 5, 3, NULL, 1, 2),
@@ -282,9 +282,14 @@ DELETE FROM Community;
 INSERT INTO Community (community_id, name, description, website_url, visibility_id) VALUES
 (1, 'Codemotion España', 'Organiza meetups y encuentros para la comunidad tech en España.', 'https://community.codemotion.com/codemotion-espana', 1),
 (2, 'EmpleaTech', 'Foro de empleo tecnológico en Madrid con stands y agenda de charlas.', 'https://empleatech.es/', 1),
-(3, 'AzureBrains', 'Comunidad técnica Azure y AI en Madrid.', 'https://www.meetup.com/azurebrains/', 1),
-(4, 'Arcasiles Group', 'Diseñan y producen experiencias que conectan tecnología, cultura y comunidad con creatividad y actitud.', 'https://luma.com/soyngnfn?tk=dHq7fr', 1),
-(5, 'Meetup de InnoIT Consulting en Madrid', 'Grupo de meetups técnicos de InnoIT Consulting en Madrid centrados en IA, cloud y desarrollo.', 'https://www.meetup.com/es-ES/meetup-de-innoit-consulting-en-madrid/', 1);
+(3, 'AzureBrains', 'Comunidad técnica Azure y AI en Madrid.', 'https://azurebrains.com/', 1),
+(4, 'Arcasiles Group', 'Diseñan y producen experiencias que conectan tecnología, cultura y comunidad con creatividad y actitud.', 'https://arcasiles.com/', 1),
+(5, 'Meetup de InnoIT Consulting en Madrid', 'Grupo de meetups técnicos de InnoIT Consulting en Madrid centrados en IA, cloud y desarrollo.', 'https://www.meetup.com/es-ES/meetup-de-innoit-consulting-en-madrid/', 1),
+(6, 'DisiTech', 'Comunidad tecnológica centrada en eventos y contenidos donde la tecnología se conecta con diseño e IA desde una perspectiva creativa y no convencional.', 'https://www.linkedin.com/company/disitech/', 1),
+(7, 'Women For Technical Talks (W4TT)', 'Comunidad que impulsa la participación de mujeres en carreras STEM como ponentes y profesionales técnicas.', 'https://www.women4tt.com/', 1),
+(8, 'Microsoft Techie Girls Group', 'Meetup técnico orientado a tecnologías Microsoft para capacitar talento femenino y personas no binarias en cloud, datos e IA.', 'https://www.meetup.com/es-es/microsoft-techie-girls-group/', 1),
+(9, 'Tech Riders', 'Comunidad tecnológica de Tajamar centrada en visibilidad y participación en eventos y redes.', 'https://techriders.tajamar.es/', 1),
+(10, 'Global Power Platform Bootcamp Madrid', 'Eventos internacional centrado en Power Platform, low-code, automatización e IA aplicada.', 'https://www.powerplatformbootcamp.com/', 1);
 
 -- City + Venue
 DELETE FROM City;
@@ -359,6 +364,17 @@ INSERT INTO Event (event_id, name, community_id, venue_id, starts_at, ends_at, l
   'Spanish',
   'https://www.meetup.com/es-ES/meetup-de-innoit-consulting-en-madrid/events/312499540/',
   1
+),
+(
+  6,
+  'Global Power Platform Bootcamp Madrid 2026',
+  10,
+  3,
+  '2026-02-14 09:00:00',
+  '2026-02-14 18:00:00',
+  'Spanish',
+  'https://www.eventbrite.es/e/entradas-global-power-platform-bootcamp-madrid-2026-1981590026111',
+  1
 );
 
 -- Role catalog
@@ -377,7 +393,8 @@ INSERT INTO EventParticipation (participation_id, person_name, event_id, role_id
 (2, 'Rukaya Masmoudi Messaoud', 2, 2, 'Speaker with Patricia Rodríguez Vaquero.', 1),
 (3, 'Rukaya Masmoudi Messaoud', 3, 3, 'Supported promotion and community engagement for the meetup.', 1),
 (4, 'Rukaya Masmoudi Messaoud', 4, 1, 'Attended as participant.', 1),
-(5, 'Rukaya Masmoudi Messaoud', 5, 1, 'Attended as participant.', 1);
+(5, 'Rukaya Masmoudi Messaoud', 5, 1, 'Attended as participant.', 1),
+(6, 'Rukaya Masmoudi Messaoud', 6, 1, 'Attended as participant.', 1);
 
 -- Your contribution
 DELETE FROM Contribution;
@@ -486,3 +503,205 @@ DELETE FROM EventPost;
 INSERT INTO EventPost (event_id, post_id) VALUES
 (4, 1),
 (5, 2);
+
+-- Organizations (companies / educational centers)
+INSERT INTO Organization (organization_id, name, org_type, website_url, city_id, description, visibility_id) VALUES
+(
+  1,
+  'Tajamar',
+  'education',
+  'https://tajamar.es/',
+  1,
+  'Centro educativo',
+  1
+),
+(
+  2,
+  'Linkia',
+  'education',
+  'https://linkiafp.es/',
+  1,
+  'Centro educativo',
+  1
+),
+(
+  3,
+  'Infoavan',
+  'company',
+  'https://infoavan.com/',
+  1,
+  'Empresa de consultoría especializada en tecnologías Microsoft.',
+  1
+),
+(
+  4,
+  'Creatiburón',
+  'company',
+  'https://www.creatiburon.com/',
+  1,
+  'Estudio de diseño gráfico y desarrollo web especializado en WordPress, WooCommerce y estrategia digital.',
+  1
+),
+(
+  5,
+  'Prosegur',
+  'company',
+  'https://www.prosegur.es/',
+  1,
+  'Empresa de servicios globales de seguridad y soporte operativo.',
+  1
+);
+
+-- Engagement types
+INSERT INTO EngagementType (engagement_type_id, name, notes) VALUES
+(1, 'education',  'Formal education such as degrees and master programs'),
+(2, 'work',       'Professional experience in companies'),
+(3, 'volunteering','Community, meetup and non-profit contributions'),
+(4, 'project',    'Individual or team projects (reserved for future use)');
+
+-- Engagements: education, work, volunteering
+
+-- Education
+INSERT INTO Engagement
+(engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id)
+VALUES
+(
+  1,
+  1,
+  1,
+  NULL,
+  'Máster en Desarrollo Web Full Stack + MultiCloud',
+  '2023-10-01',
+  '2024-06-30',
+  0,
+  1,
+  'Máster orientado a desarrollo web Full Stack con foco en front-end, back-end y nubes (Azure y AWS).',
+  1
+),
+(
+  2,
+  1,
+  2,
+  NULL,
+  'Grado Superior en Desarrollo de Aplicaciones Web (DAW)',
+  '2021-09-01',
+  '2023-05-31',
+  0,
+  1,
+  'Formación en desarrollo de aplicaciones web (DAW)',
+  1
+);
+
+-- Work
+INSERT INTO Engagement
+(engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id)
+VALUES
+(
+  3,
+  2,
+  3,
+  NULL,
+  'Technical Consultant',
+  '2024-09-01',
+  NULL,
+  1,
+  1,
+  'Rol como consultora técnica trabajando con tecnologías Microsoft especializada en inteligencia artificial.',
+  1
+),
+(
+  4,
+  2,
+  4,
+  NULL,
+  'Desarrolladora y Diseñadora Web en WordPress',
+  '2023-04-01',
+  '2024-09-30',
+  0,
+  1,
+  'Desarrollo y diseño de sitios web en WordPress y WooCommerce, maquetación con HTML/CSS, diseño con Divi, SEO y accesibilidad web.',
+  1
+),
+(
+  5,
+  2,
+  5,
+  NULL,
+  'Líder del equipo de Auxiliares en Ciudad Financiera del BBVA',
+  '2017-10-01',
+  '2023-04-30',
+  0,
+  1,
+  'Gestión de equipo, coordinación operativa y mejora de eficiencia mediante herramientas digitales en Ciudad Financiera del BBVA.',
+  1
+);
+
+-- Volunteering
+INSERT INTO Engagement
+(engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id)
+VALUES
+(
+  6,
+  3,
+  NULL,
+  6,
+  'Co-fundadora y organizadora',
+  '2025-05-01',
+  NULL,
+  1,
+  1,
+  'Co-fundadora de una comunidad tecnológica centrada en eventos, contenidos y espacios formativos conectando tecnología y diseño.',
+  1
+),
+(
+  7,
+  3,
+  NULL,
+  3,
+  'Gestión de eventos y difusión técnica',
+  '2025-05-01',
+  NULL,
+  1,
+  1,
+  'Colaboración en la organización y difusión de eventos técnicos centrados en Azure.',
+  1
+),
+(
+  8,
+  3,
+  NULL,
+  7,
+  'Desarrollo, mantenimiento y actualización web',
+  '2025-05-01',
+  NULL,
+  1,
+  1,
+  'Gestión técnica de la web de W4TT, mantenimiento y actualización continua para asegurar correcto funcionamiento y contenido actualizado.',
+  1
+),
+(
+  9,
+  3,
+  NULL,
+  8,
+  'Co-fundadora y organizadora',
+  '2024-11-01',
+  NULL,
+  1,
+  1,
+  'Co-fundadora de un meetup técnico orientado a tecnologías Microsoft, cloud, datos e IA para talento femenino y personas no binarias.',
+  1
+),
+(
+  10,
+  3,
+  NULL,
+  9,
+  'Young Rider',
+  '2023-10-01',
+  '2024-06-30',
+  0,
+  1,
+  'Participación en la comunidad Tech Riders, dando visibilidad a eventos y actividades tecnológicas desde Tajamar.',
+  1
+);

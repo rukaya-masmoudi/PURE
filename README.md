@@ -60,7 +60,14 @@ db/queries/10_life_events_with_covers.sql
 Run:
 
 db/queries/11_calendar_day_activity.sql  
-db/queries/12_calendar_my_activity_detail.sql 
+db/queries/12_calendar_my_activity_detail.sql
+
+### Career & Roles
+
+Run:
+
+- db/queries/14_career_timeline.sql  
+- db/queries/15_career_active_engagements.sql
 
 ---
 
@@ -95,3 +102,11 @@ No dashboards.
 No frontend.
 
 Those will come later, phase by phase, on top of this foundation.
+
+### Career & Roles Layer
+
+- Organizations (companies and educational centers)
+- Communities
+- Engagement types (education, work, volunteering, project)
+- Engagements describing my long-running roles and experiences
+- Query pack in db/queries/ (14–15)

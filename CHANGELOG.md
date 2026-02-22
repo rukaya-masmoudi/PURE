@@ -2,6 +2,27 @@
 
 All notable changes to PURE will be documented here.
 
+## [0.1.5] - 2026-02-21
+### Added
+- ML-ready view `v_ml_study_sessions` to represent study sessions as a tabular dataset
+- Query `13_ml_study_sessions_export.sql` for exporting the ML-ready dataset
+- DP-900 mapping document:
+  - docs/growth/dp900-mapping.md
+- Documentation updates to:
+  - Reference the ML-ready view and export query
+- Career & Roles Layer:
+  - Organization table for companies and educational centers
+  - EngagementType catalog (education, work, volunteering, project)
+  - Engagement table to represent long-running relationships with organizations or communities
+- Seed data.
+- Career query pack:
+  - 14_career_timeline.sql
+  - 15_career_active_engagements.sql
+- Documentation updates for:
+  - Start Here
+  - db/README
+  - Identity and Map docs
+
 ## [0.1.4] - 2026-02-20
 ### Added
 - Cross-layer calendar view v_calendar_day_activity combining Studies and Life by date

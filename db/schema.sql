@@ -3,6 +3,7 @@ PRAGMA foreign_keys = ON;
 -- =========================
 -- DROP (safe rebuild)
 -- =========================
+DROP VIEW IF EXISTS v_ml_study_sessions;
 DROP VIEW IF EXISTS v_calendar_day_activity;
 DROP VIEW IF EXISTS v_day_metrics;
 
@@ -16,6 +17,9 @@ DROP TABLE IF EXISTS Role;
 DROP TABLE IF EXISTS Contribution;
 DROP TABLE IF EXISTS Event;
 DROP TABLE IF EXISTS Venue;
+DROP TABLE IF EXISTS Engagement;
+DROP TABLE IF EXISTS EngagementType;
+DROP TABLE IF EXISTS Organization;
 DROP TABLE IF EXISTS City;
 DROP TABLE IF EXISTS Community;
 
@@ -285,6 +289,70 @@ CREATE TABLE City (
   UNIQUE(name, country)
 );
 
+-- Organization = companies, educational centers, etc.
+CREATE TABLE Organization (
+  organization_id INTEGER PRIMARY KEY,
+  name            TEXT NOT NULL UNIQUE,
+  org_type        TEXT NOT NULL, -- education / company / other
+  website_url     TEXT,
+  city_id         INTEGER,
+  description     TEXT,
+  visibility_id   INTEGER NOT NULL,
+  created_at      TEXT NOT NULL DEFAULT (datetime('now')),
+
+  FOREIGN KEY (city_id)      REFERENCES City(city_id),
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id)
+);
+
+CREATE INDEX idx_org_city       ON Organization(city_id);
+CREATE INDEX idx_org_visibility ON Organization(visibility_id);
+
+-- EngagementType = catalog of engagement nature (education, work, volunteering, project, ...)
+CREATE TABLE EngagementType (
+  engagement_type_id INTEGER PRIMARY KEY,
+  name               TEXT NOT NULL UNIQUE,
+  notes              TEXT
+);
+
+-- Engagement = long-running relationships with organizations or communities
+-- (education, work, volunteering, projects)
+CREATE TABLE Engagement (
+  engagement_id      INTEGER PRIMARY KEY,
+  engagement_type_id INTEGER NOT NULL,
+
+  organization_id    INTEGER,
+  community_id       INTEGER,
+
+  title              TEXT NOT NULL,
+  started_on         TEXT NOT NULL, -- date (YYYY-MM-DD)
+  ended_on           TEXT,          -- nullable
+  is_current         INTEGER NOT NULL DEFAULT 0 CHECK(is_current IN (0,1)),
+
+  city_id            INTEGER,
+  description        TEXT,
+
+  visibility_id      INTEGER NOT NULL,
+  created_at         TEXT NOT NULL DEFAULT (datetime('now')),
+
+  -- exactly one of organization_id or community_id must be non-null
+  CHECK (
+    (organization_id IS NOT NULL AND community_id IS NULL) OR
+    (organization_id IS NULL AND community_id IS NOT NULL)
+  ),
+
+  FOREIGN KEY (engagement_type_id) REFERENCES EngagementType(engagement_type_id),
+  FOREIGN KEY (organization_id)    REFERENCES Organization(organization_id),
+  FOREIGN KEY (community_id)       REFERENCES Community(community_id),
+  FOREIGN KEY (city_id)            REFERENCES City(city_id),
+  FOREIGN KEY (visibility_id)      REFERENCES Visibility(visibility_id)
+);
+
+CREATE INDEX idx_engagement_type   ON Engagement(engagement_type_id);
+CREATE INDEX idx_engagement_org    ON Engagement(organization_id);
+CREATE INDEX idx_engagement_comm   ON Engagement(community_id);
+CREATE INDEX idx_engagement_dates  ON Engagement(started_on, ended_on);
+CREATE INDEX idx_engagement_current ON Engagement(is_current);
+
 -- Venue = reusable physical place
 CREATE TABLE Venue (
   venue_id  INTEGER PRIMARY KEY,
@@ -460,6 +528,40 @@ FROM (
 )
 GROUP BY day
 ORDER BY day;
+
+-- =========================
+-- ML-READY VIEWS (no ML, only dataset shaping)
+-- =========================
+
+-- v_ml_study_sessions:
+-- One row per DONE study session, enriched with:
+--   - study_day
+--   - day_of_week
+--   - is_weekend
+--   - total_events that day
+--   - has_event flag
+CREATE VIEW v_ml_study_sessions AS
+SELECT
+  s.session_id,
+  s.topic_id,
+  date(s.started_at)                            AS study_day,
+  STRFTIME('%w', s.started_at)                  AS day_of_week,   -- 0=Sunday ... 6=Saturday
+  CASE
+    WHEN STRFTIME('%w', s.started_at) IN ('0','6') THEN 1
+    ELSE 0
+  END                                           AS is_weekend,
+  s.duration_minutes,
+  s.difficulty,
+  s.energy,
+  COALESCE(c.total_events, 0)                   AS events_that_day,
+  CASE
+    WHEN COALESCE(c.total_events, 0) > 0 THEN 1
+    ELSE 0
+  END                                           AS has_event
+FROM StudySession s
+LEFT JOIN v_calendar_day_activity c
+  ON c.calendar_day = date(s.started_at)
+WHERE s.status_id = 1;
 
 -- =========================
 -- DERIVED METRICS
