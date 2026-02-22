@@ -13,7 +13,7 @@ PURE is structured into blocks.
 They are in these states:
 
 - Identity — active
-- Growth — active (Studies + Calendar)
+- Growth — active (Studies + Calendar + Career & Roles)
 - Impact — active (Life)
 - Intelligence — locked (future)
 - System — active

@@ -6,12 +6,14 @@ Current scope:
 
 - Studies Layer
 - Life Layer (structural)
+- Cross-layer calendar views
+- Career & Roles Layer
 
 ## Structure
 
 - schema.sql  — tables, constraints, indexes, and derived views
 - seed.sql    — minimal public seed data (real but non-sensitive)
-- queries/    — curated SQL queries to explore growth metrics (Studies)
+- queries/    — curated SQL queries to explore growth metrics (Studies, Life, Calendar, Career)
 - pure.db     — generated locally (ignored by git)
 
 ---
@@ -88,3 +90,48 @@ No additional analytics or joins beyond the calendar are implemented yet.
 
 This keeps the model simple and focused on a single question:
 on which days am I learning, showing up in the community, or both?
+
+### ML-ready view
+
+The view `v_ml_study_sessions` provides an ML-ready dataset:
+
+- One row per DONE study session
+- Features:
+  - study_day, day_of_week, is_weekend
+  - duration_minutes, difficulty, energy
+  - events_that_day, has_event
+
+Use:
+
+- `13_ml_study_sessions_export.sql` to export this dataset for external ML experiments.
+
+---
+
+## Career & Roles Layer
+
+The Career & Roles Layer models long-running relationships with organizations and communities:
+
+- Organization:
+  - Companies
+  - Educational centers
+- Community:
+  - Tech communities
+- EngagementType:
+  - education
+  - work
+  - volunteering
+  - project (reserved for later)
+- Engagement:
+  - One row per long-running relationship:
+    - education programs
+    - jobs
+    - volunteering roles
+
+Queries:
+
+- 14_career_timeline.sql - Full timeline of my education, work and volunteering, ordered by date.
+
+- 15_career_active_engagements.sql - Current active engagements, showing what I am doing now.
+
+This layer connects who I am (Identity) with where I work and contribute (System, Impact),
+using the same data-first, queryable approach as the rest of PURE.
