@@ -69,6 +69,22 @@ Run:
 - db/queries/14_career_timeline.sql  
 - db/queries/15_career_active_engagements.sql
 
+### Reflections & NLP signals
+
+Run:
+
+- db/queries/16_reflections_latest.sql  
+- db/queries/17_reflections_search.sql  
+- db/queries/18_reflections_by_category_sentiment.sql
+
+### Portfolio Search (base)
+
+Run:
+
+- db/queries/19_portfolio_all_items.sql  
+- db/queries/20_portfolio_search_by_text.sql  
+- db/queries/21_portfolio_filter_by_type.sql
+
 ---
 
 ## Current scope
@@ -110,3 +126,19 @@ Those will come later, phase by phase, on top of this foundation.
 - Engagement types (education, work, volunteering, project)
 - Engagements describing my long-running roles and experiences
 - Query pack in db/queries/ (14–15)
+
+### Reflections & NLP signals
+
+- Reflections anchored to studies, events and career engagements
+- NLP signals stored as data:
+  - sentiment (label + scores)
+  - key phrases
+  - high-level categories
+- Query pack in db/queries/ (16–18)
+
+PURE does not run Azure AI Language at build time.
+It stores and exposes the resulting signals as structured data.
+
+### Portfolio Search
+
+- Portfolio Search base view (`v_portfolio_search_items`) unifying Studies, Life, Career, and Reflections.

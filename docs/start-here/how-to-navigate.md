@@ -41,6 +41,9 @@ There is data.
 - ML-ready view (no ML inside PURE)
   - One row per study session
   - Enriched with calendar context (events that day)
+- Reflections & NLP signals
+  - Textual reflections anchored to studies, events or career
+  - Sentiment, key phrases and high-level categories (output of Azure AI Language, stored as data)
 
 This is the foundation.
 
@@ -127,6 +130,38 @@ Use:
 
 db/queries/14_career_timeline.sql  
 db/queries/15_career_active_engagements.sql  
+
+---
+
+## How to explore Reflections & NLP signals
+
+Use:
+
+db/queries/16_reflections_latest.sql
+db/queries/17_reflections_search.sql
+db/queries/18_reflections_by_category_sentiment.sql
+
+---
+
+## How to explore Portfolio Search (base layer)
+
+The view:
+
+- v_portfolio_search_items
+
+provides a unified way to see:
+
+- Study topics
+- Events
+- Career engagements
+- Event contributions (talks, panels, workshops)
+- Reflections with NLP signals
+
+Use:
+
+db/queries/19_portfolio_all_items.sql
+db/queries/20_portfolio_search_by_text.sql
+db/queries/21_portfolio_filter_by_type.sql
 
 ---
 
