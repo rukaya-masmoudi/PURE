@@ -253,13 +253,9 @@ VALUES
 (21, 21, '2026-02-22 12:12:00', '2026-02-22 13:04:00', 52, 4, 3, NULL, 1, 1),
 (22, 22, '2026-02-22 13:16:00', '2026-02-22 13:58:00', 42, 4, 3, NULL, 1, 1),
 
--- =========================
--- PLANNED
--- =========================
-
 -- 2026-02-23
-(23, 23, '2026-02-23 19:11:00', '2026-02-23 20:06:00', 55, 5, 3, NULL, 1, 2),
-(24, 24, '2026-02-23 20:20:00', '2026-02-23 21:11:00', 51, 5, 3, NULL, 1, 2);
+(23, 23, '2026-02-23 19:11:00', '2026-02-23 20:06:00', 55, 5, 3, NULL, 1, 1),
+(24, 24, '2026-02-23 20:20:00', '2026-02-23 21:11:00', 51, 5, 3, NULL, 1, 1);
 
 -- Certifications
 DELETE FROM Certification;
@@ -454,6 +450,14 @@ INSERT INTO MediaAsset (asset_id, asset_type, taken_at, storage_ref, caption, vi
   'docs/assets/events/con-licencia-ia-007-cover.jpg',
   'Meetup "Con licencia para razonar: IA al estilo 007" de InnoIT Consulting en Meet&Go (Madrid).',
   1
+),
+(
+  6,
+  'PHOTO',
+  '2026-02-21 13:00:00',
+  'docs/assets/events/global-power-platform-bootcamp-madrid-2026-cover.jpg',
+  'Asistencia al Global Power Platform Bootcamp Madrid 2026.',
+  1
 );
 
 -- Event media
@@ -464,7 +468,8 @@ INSERT INTO EventMedia (event_id, asset_id, is_cover) VALUES
 (2, 2, 1),
 (3, 3, 1),
 (4, 4, 1),
-(5, 5, 1);
+(5, 5, 1),
+(6, 6, 1);
 
 -- Posts
 DELETE FROM Post;
@@ -704,4 +709,608 @@ VALUES
   1,
   'Participación en la comunidad Tech Riders, dando visibilidad a eventos y actividades tecnológicas desde Tajamar.',
   1
+);
+
+-- =========================
+-- REFLECTIONS & NLP SIGNALS (seed)
+-- =========================
+
+DELETE FROM ReflectionAnalysis;
+DELETE FROM Reflection;
+
+INSERT INTO Reflection (
+  reflection_id,
+  source_type,
+  source_id,
+  created_at,
+  text,
+  visibility_id
+) VALUES
+-- =========================
+-- STUDY (StudySession)
+-- =========================
+(
+  1,
+  'STUDY',
+  1,
+  '2026-02-09 22:00:00',
+  'Hoy he empezado oficialmente DP-900. Me sorprende lo mucho que ayuda volver a los fundamentos de los datos antes de meterse en IA.',
+  1
+),
+(
+  2,
+  'STUDY',
+  6,
+  '2026-02-11 22:00:00',
+  'La parte de datos no relacionales me ha roto un poco la cabeza, pero empiezo a ver por qué Cosmos DB tiene sentido cuando el modelo relacional se queda corto.',
+  1
+),
+(
+  3,
+  'STUDY',
+  9,
+  '2026-02-12 22:15:00',
+  'Cerrar la parte de analítica en Azure me ha hecho ver que el mundo datos no es solo tablas. Hay streaming, analítica masiva y visualización para contar historias.',
+  1
+),
+(
+  4,
+  'STUDY',
+  10,
+  '2026-02-13 19:15:00',
+  'Volver a Python para explorar datos me ha recordado por qué me gusta tanto Machine Learning: transformar números en decisiones.',
+  1
+),
+(
+  5,
+  'STUDY',
+  11,
+  '2026-02-15 14:00:00',
+  'Con los modelos de regresión por fin siento que puedo aterrizar problemas de negocio en algo medible. No es magia, son hipótesis, datos y evaluación.',
+  1
+),
+(
+  6,
+  'STUDY',
+  14,
+  '2026-02-16 23:00:00',
+  'Hoy he terminado la ruta de Create Machine Learning Models. Me ha costado, pero siento que por fin tengo una base real de Machine Learning en Azure.',
+  1
+),
+(
+  7,
+  'STUDY',
+  15,
+  '2026-02-19 22:00:00',
+  'Entrar en Azure AI Language me ha encantado. Ver texto convertirse en sentimiento, frases clave y categorías me parece justo lo que quiero aplicar en PURE.',
+  1
+),
+(
+  8,
+  'STUDY',
+  19,
+  '2026-02-21 18:00:00',
+  'Custom NER me ha hecho pensar en todas las entidades de mi propia vida tech: comunidades, eventos, roles. PURE puede convertirse en su propio dataset etiquetado.',
+  1
+),
+(
+  9,
+  'STUDY',
+  21,
+  '2026-02-22 14:30:00',
+  'La parte de voz en Azure AI y Foundry me ha abierto una puerta nueva: no solo quiero texto, también quiero voz, historias y narrativa en mis proyectos.',
+  1
+),
+(
+  10,
+  'STUDY',
+  23,
+  '2026-02-23 22:15:00',
+  'Cerrar la parte de apps generativas con audio me recuerda que quiero que PURE hable, escuche y acompañe, no solo que muestre datos.',
+  1
+),
+
+-- =========================
+-- EVENTS (Event)
+-- =========================
+(
+  11,
+  'EVENT',
+  1,
+  '2026-02-18 22:30:00',
+  'CodeMeet after Tech ha sido una recarga social. Ver tanta gente tech junta me da la sensación de que no estoy sola en este camino.',
+  1
+),
+(
+  12,
+  'EVENT',
+  2, 
+  '2026-02-04 23:00:00',
+  'EmpleaTech ha sido intenso pero muy especial. Hablar de visibilidad femenina en tecnología me ha recordado por qué hago todo esto.',
+  1
+),
+(
+  13,
+  'EVENT',
+  3,
+  '2026-01-29 22:00:00',
+  'Season of AI – MCP me ha hecho ver que la comunidad no solo consume contenido: lo crea. Estar cerca de ese tipo de eventos me inspira a construir los míos.',
+  1
+),
+(
+  14,
+  'EVENT',
+  4,
+  '2026-01-28 23:00:00',
+  'Fintech CONF 2026 ha mezclado creatividad, marca personal y tecnología de una forma muy diferente a la típica charla técnica. Ese equilibrio me representa mucho.',
+  1
+),
+(
+  15,
+  'EVENT',
+  5,
+  '2026-01-21 22:15:00',
+  'El meetup "Con licencia para razonar" me ha hecho ver los agentes de IA como algo casi cinematográfico. Me gusta cuando lo técnico tiene narrativa.',
+  1
+),
+(
+  16,
+  'EVENT',
+  6,
+  '2026-02-14 20:30:00',
+  'El Global Power Platform Bootcamp me ha recordado por qué Power Platform es clave: velocidad, impacto y mucha comunidad alrededor.',
+  1
+),
+
+-- =========================
+-- ENGAGEMENTS (education, work, volunteering)
+-- =========================
+(
+  17,
+  'WORK',
+  1,
+  '2024-06-30 21:00:00',
+  'El máster de Tajamar fue el punto donde dejé de ver la tecnología solo como algo que estudiaba y empecé a verla como algo que podía diseñar y gobernar.',
+  1
+),
+(
+  18,
+  'WORK',
+  2,
+  '2023-05-31 21:00:00',
+  'El DAW fue mucho más que un título: fue la prueba de que podía estudiar a distancia mientras trabajaba y seguir adelante aunque el camino no fuera lineal.',
+  1
+),
+(
+  19,
+  'WORK',
+  3,
+  '2026-02-18 21:30:00',
+  'En Infoavan empiezo a sentir que conecto mis proyectos personales con el trabajo del día a día. Falta mucho, pero el camino tiene sentido.',
+  1
+),
+(
+  20,
+  'WORK',
+  4,
+  '2024-09-30 20:30:00',
+  'Creatiburón me enseñó a cuidar el detalle visual y la experiencia. Hoy esa parte estética se nota en cómo quiero que PURE se vea y se sienta.',
+  1
+),
+(
+  21,
+  'WORK',
+  5,
+  '2023-04-30 21:30:00',
+  'Prosegur fue mi etapa de resiliencia. Coordinar equipos y lidiar con operativa diaria me preparó mucho más de lo que pensaba para el mundo tech.',
+  1
+),
+(
+  22,
+  'WORK',
+  6,
+  '2025-05-15 22:00:00',
+  'DisiTech es la prueba de que también puedo crear espacios propios. No solo consumir comunidad, sino construirla desde una perspectiva disidente.',
+  1
+),
+(
+  23,
+  'WORK',
+  8,
+  '2025-06-15 21:30:00',
+  'Colaborar con Women For Technical Talks me recuerda que no solo estoy construyendo mi carrera, también estoy ayudando a que otras tengan voz.',
+  1
+),
+(
+  24,
+  'WORK',
+  9,
+  '2024-11-15 21:00:00',
+  'Microsoft Techie Girls Group me conecta con el tipo de comunidad que quería encontrar cuando empecé: técnica, cercana y con referentes femeninos.',
+  1
+);
+
+-- =========================
+-- NLP ANALYSIS (Azure AI Language)
+-- =========================
+
+INSERT INTO ReflectionAnalysis (
+  analysis_id,
+  reflection_id,
+  provider,
+  language_code,
+  sentiment_label,
+  sentiment_positive,
+  sentiment_neutral,
+  sentiment_negative,
+  key_phrases,
+  category,
+  pii_flag,
+  visibility_id,
+  created_at
+) VALUES
+-- STUDY
+(
+  1,
+  1,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.84,
+  0.13,
+  0.03,
+  'DP-900,fundamentos de datos,IA,Azure',
+  'learning',
+  0,
+  1,
+  '2026-02-09 22:05:00'
+),
+(
+  2,
+  2,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.82,
+  0.14,
+  0.04,
+  'datos no relacionales,Cosmos DB,modelo relacional',
+  'learning',
+  0,
+  1,
+  '2026-02-11 22:05:00'
+),
+(
+  3,
+  3,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.88,
+  0.10,
+  0.02,
+  'analítica en Azure,streaming,visualización,historias con datos',
+  'learning',
+  0,
+  1,
+  '2026-02-12 22:20:00'
+),
+(
+  4,
+  4,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.86,
+  0.11,
+  0.03,
+  'Python,explorar datos,Machine Learning,decisiones',
+  'learning',
+  0,
+  1,
+  '2026-02-13 19:20:00'
+),
+(
+  5,
+  5,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.87,
+  0.10,
+  0.03,
+  'regresión,problemas de negocio,medible,evaluación',
+  'learning',
+  0,
+  1,
+  '2026-02-15 14:05:00'
+),
+(
+  6,
+  6,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.89,
+  0.08,
+  0.03,
+  'Create Machine Learning Models,base real de Machine Learning,Azure',
+  'learning',
+  0,
+  1,
+  '2026-02-16 23:05:00'
+),
+(
+  7,
+  7,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.90,
+  0.07,
+  0.03,
+  'Azure AI Language,texto,sentimiento,frases clave, PURE',
+  'learning',
+  0,
+  1,
+  '2026-02-19 22:05:00'
+),
+(
+  8,
+  8,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.88,
+  0.09,
+  0.03,
+  'Custom NER,entidades,comunidades,eventos,roles, dataset etiquetado',
+  'learning',
+  0,
+  1,
+  '2026-02-21 18:05:00'
+),
+(
+  9,
+  9,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.87,
+  0.10,
+  0.03,
+  'voz,Azure AI,Foundry, historias,narrativa',
+  'learning',
+  0,
+  1,
+  '2026-02-22 14:35:00'
+),
+(
+  10,
+  10,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.89,
+  0.08,
+  0.03,
+  'apps generativas,audio,PURE,hable y escuche',
+  'learning',
+  0,
+  1,
+  '2026-02-23 22:20:00'
+),
+
+-- EVENTS
+(
+  11,
+  11,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.92,
+  0.06,
+  0.02,
+  'CodeMeet after Tech,comunidad,recarga social,camino',
+  'community',
+  0,
+  1,
+  '2026-02-18 22:35:00'
+),
+(
+  12,
+  12,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.91,
+  0.07,
+  0.02,
+  'EmpleaTech,visibilidad femenina,tecnología',
+  'community',
+  0,
+  1,
+  '2026-02-04 23:05:00'
+),
+(
+  13,
+  13,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.90,
+  0.08,
+  0.02,
+  'Season of AI,AzureBrains,comunidad,crear contenido',
+  'community',
+  0,
+  1,
+  '2026-01-29 22:05:00'
+),
+(
+  14,
+  14,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.89,
+  0.09,
+  0.02,
+  'Fintech CONF 2026,creatividad,marca personal,tecnología,equilibrio',
+  'community',
+  0,
+  1,
+  '2026-01-28 23:05:00'
+),
+(
+  15,
+  15,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.88,
+  0.10,
+  0.02,
+  'Con licencia para razonar,agentes de IA,narrativa,James Bond',
+  'community',
+  0,
+  1,
+  '2026-01-21 22:20:00'
+),
+(
+  16,
+  16,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.90,
+  0.08,
+  0.02,
+  'Global Power Platform Bootcamp,Power Platform,low-code,comunidad',
+  'community',
+  0,
+  1,
+  '2026-02-14 20:35:00'
+),
+
+-- ENGAGEMENTS
+(
+  17,
+  17,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.88,
+  0.10,
+  0.02,
+  'máster,Tajamar,diseñar tecnología,gobernar sistemas',
+  'career',
+  0,
+  1,
+  '2024-06-30 21:05:00'
+),
+(
+  18,
+  18,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.87,
+  0.11,
+  0.02,
+  'DAW,estudiar a distancia,trabajar,camino no lineal',
+  'career',
+  0,
+  1,
+  '2023-05-31 21:05:00'
+),
+(
+  19,
+  19,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.79,
+  0.18,
+  0.03,
+  'Infoavan,proyectos personales,trabajo del día a día,camino',
+  'career',
+  0,
+  1,
+  '2026-02-18 21:35:00'
+),
+(
+  20,
+  20,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.86,
+  0.11,
+  0.03,
+  'Creatiburón,detalle visual,experiencia,PURE,se vea y se sienta',
+  'career',
+  0,
+  1,
+  '2024-09-30 20:35:00'
+),
+(
+  21,
+  21,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.85,
+  0.12,
+  0.03,
+  'Prosegur,resiliencia,gestión de equipos,operativa diaria,mundo tech',
+  'career',
+  0,
+  1,
+  '2023-04-30 21:35:00'
+),
+(
+  22,
+  22,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.90,
+  0.08,
+  0.02,
+  'DisiTech,espacios propios,comunidad,perspectiva disidente',
+  'community',
+  0,
+  1,
+  '2025-05-15 22:05:00'
+),
+(
+  23,
+  23,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.89,
+  0.09,
+  0.02,
+  'Women For Technical Talks,voz,mujeres en tecnología,apoyo',
+  'community',
+  0,
+  1,
+  '2025-06-15 21:35:00'
+),
+(
+  24,
+  24,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.90,
+  0.07,
+  0.03,
+  'Microsoft Techie Girls Group,meetup técnico,referentes femeninos,cloud,datos,IA',
+  'community',
+  0,
+  1,
+  '2024-11-15 21:05:00'
 );

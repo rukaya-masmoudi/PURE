@@ -3,6 +3,8 @@ PRAGMA foreign_keys = ON;
 -- =========================
 -- DROP (safe rebuild)
 -- =========================
+DROP VIEW IF EXISTS v_portfolio_search_items;
+DROP VIEW IF EXISTS v_reflection_signals;
 DROP VIEW IF EXISTS v_ml_study_sessions;
 DROP VIEW IF EXISTS v_calendar_day_activity;
 DROP VIEW IF EXISTS v_day_metrics;
@@ -46,6 +48,9 @@ DROP TABLE IF EXISTS LearningLevel;
 
 DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS Provider;
+
+DROP TABLE IF EXISTS ReflectionAnalysis;
+DROP TABLE IF EXISTS Reflection;
 
 -- =========================
 -- CATALOGS
@@ -491,6 +496,222 @@ CREATE TABLE EventMedia (
   FOREIGN KEY (event_id) REFERENCES Event(event_id)       ON DELETE CASCADE,
   FOREIGN KEY (asset_id) REFERENCES MediaAsset(asset_id)  ON DELETE CASCADE
 );
+
+-- =========================
+-- REFLECTIONS & NLP SIGNALS
+-- =========================
+
+-- Reflection = a textual note anchored to something in PURE (optional)
+-- source_type:
+--   STUDY  -> StudySession.session_id
+--   EVENT  -> Event.event_id
+--   WORK   -> Engagement.engagement_id (work)
+--   EDUCATION -> Engagement.engagement_id (education)
+--   VOLUNTEERING -> Engagement.engagement_id (volunteering)
+--   OTHER  -> no specific link
+CREATE TABLE Reflection (
+  reflection_id INTEGER PRIMARY KEY,
+  source_type   TEXT NOT NULL, -- STUDY / EVENT / WORK / EDUCATION / VOLUNTEERING / OTHER
+  source_id     INTEGER,       -- meaning depends on source_type
+  created_at    TEXT NOT NULL,
+  text          TEXT NOT NULL,
+
+  visibility_id INTEGER NOT NULL,
+
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id)
+);
+
+CREATE INDEX idx_reflection_source  ON Reflection(source_type, source_id);
+CREATE INDEX idx_reflection_created ON Reflection(created_at);
+CREATE INDEX idx_reflection_vis     ON Reflection(visibility_id);
+
+-- ReflectionAnalysis = output of Azure AI Language (or similar) over a reflection
+CREATE TABLE ReflectionAnalysis (
+  analysis_id         INTEGER PRIMARY KEY,
+  reflection_id       INTEGER NOT NULL,
+
+  provider            TEXT NOT NULL, -- e.g. 'azure-ai-language'
+  language_code       TEXT,          -- e.g. 'es'
+
+  sentiment_label     TEXT,          -- positive / neutral / negative / mixed
+  sentiment_positive  REAL,
+  sentiment_neutral   REAL,
+  sentiment_negative  REAL,
+
+  key_phrases         TEXT,          -- comma-separated list for now
+  category            TEXT,          -- high-level category (learning / community / career / ...)
+
+  pii_flag            INTEGER NOT NULL DEFAULT 0 CHECK(pii_flag IN (0,1)),
+
+  visibility_id       INTEGER NOT NULL,
+  created_at          TEXT NOT NULL DEFAULT (datetime('now')),
+
+  FOREIGN KEY (reflection_id) REFERENCES Reflection(reflection_id) ON DELETE CASCADE,
+  FOREIGN KEY (visibility_id) REFERENCES Visibility(visibility_id)
+);
+
+CREATE INDEX idx_refanalysis_ref       ON ReflectionAnalysis(reflection_id);
+CREATE INDEX idx_refanalysis_sentiment ON ReflectionAnalysis(sentiment_label);
+CREATE INDEX idx_refanalysis_category  ON ReflectionAnalysis(category);
+CREATE INDEX idx_refanalysis_vis       ON ReflectionAnalysis(visibility_id);
+
+-- =========================
+-- PORTFOLIO SEARCH BASE VIEW
+-- =========================
+
+-- v_portfolio_search_items:
+-- Unified, PUBLIC-facing view of items that should appear in "search".
+--
+-- item_type:
+--   TOPIC
+--   EVENT
+--   ENGAGEMENT
+--   CONTRIBUTION
+--   REFLECTION
+--
+-- item_key:
+--   Corresponding primary key in the source table.
+--
+-- main_date:
+--   Created_at / starts_at / started_on depending on source.
+--
+-- title / kind_label / secondary_label:
+--   Textual fields for display and filtering.
+--
+-- location:
+--   City when applicable.
+--
+-- tags_text:
+--   Concatenated tags where applicable (topics).
+--
+-- sentiment_label, category:
+--   From ReflectionAnalysis only (NULL for other item types).
+CREATE VIEW v_portfolio_search_items AS
+-- Studies: Topics
+SELECT
+  'TOPIC'                          AS item_type,
+  t.topic_id                       AS item_key,
+  t.created_at                     AS main_date,
+  t.name                           AS title,
+  'Study topic'                    AS kind_label,
+  NULL                             AS secondary_label,
+  NULL                             AS location,
+  GROUP_CONCAT(DISTINCT tg.name)   AS tags_text,
+  NULL                             AS sentiment_label,
+  NULL                             AS category
+FROM Topic t
+LEFT JOIN TopicTag tt ON tt.topic_id = t.topic_id
+LEFT JOIN Tag tg      ON tg.tag_id   = tt.tag_id
+WHERE t.visibility_id = 1
+GROUP BY t.topic_id
+
+UNION ALL
+
+-- Life: Events
+SELECT
+  'EVENT'                          AS item_type,
+  e.event_id                       AS item_key,
+  e.starts_at                      AS main_date,
+  e.name                           AS title,
+  'Event'                          AS kind_label,
+  c.name                           AS secondary_label, -- community
+  ci.name                          AS location,
+  NULL                             AS tags_text,
+  NULL                             AS sentiment_label,
+  NULL                             AS category
+FROM Event e
+JOIN Community c ON e.community_id = c.community_id
+JOIN Venue     v ON e.venue_id     = v.venue_id
+JOIN City     ci ON v.city_id      = ci.city_id
+WHERE e.visibility_id = 1
+
+UNION ALL
+
+-- Career & Roles: Engagements
+SELECT
+  'ENGAGEMENT'                     AS item_type,
+  g.engagement_id                  AS item_key,
+  g.started_on                     AS main_date,
+  g.title                          AS title,
+  et.name                          AS kind_label,       -- education / work / volunteering / project
+  COALESCE(o.name, com.name)       AS secondary_label,  -- organization or community
+  ci.name                          AS location,
+  NULL                             AS tags_text,
+  NULL                             AS sentiment_label,
+  NULL                             AS category
+FROM Engagement g
+JOIN EngagementType et ON g.engagement_type_id = et.engagement_type_id
+LEFT JOIN Organization o ON g.organization_id = o.organization_id
+LEFT JOIN Community   com ON g.community_id   = com.community_id
+LEFT JOIN City        ci  ON g.city_id        = ci.city_id
+WHERE g.visibility_id = 1
+
+UNION ALL
+
+-- Life: Contributions (talks, panels, workshops...)
+SELECT
+  'CONTRIBUTION'                   AS item_type,
+  c2.contribution_id               AS item_key,
+  COALESCE(c2.starts_at, e2.starts_at) AS main_date,
+  c2.title                         AS title,
+  c2.type                          AS kind_label,       -- talk / panel / workshop / organizer
+  e2.name                          AS secondary_label,  -- event name
+  ci2.name                         AS location,
+  NULL                             AS tags_text,
+  NULL                             AS sentiment_label,
+  NULL                             AS category
+FROM Contribution c2
+JOIN Event  e2 ON c2.event_id = e2.event_id
+JOIN Venue v2  ON e2.venue_id = v2.venue_id
+JOIN City  ci2 ON v2.city_id  = ci2.city_id
+WHERE c2.visibility_id = 1
+
+UNION ALL
+
+-- Reflections: text + NLP signals
+SELECT
+  'REFLECTION'                     AS item_type,
+  r.reflection_id                  AS item_key,
+  r.created_at                     AS main_date,
+  substr(r.text, 1, 80)            AS title,
+  COALESCE(a.category, 'reflection') AS kind_label,
+  a.sentiment_label                AS secondary_label,
+  NULL                             AS location,
+  NULL                             AS tags_text,
+  a.sentiment_label                AS sentiment_label,
+  a.category                       AS category
+FROM Reflection r
+LEFT JOIN ReflectionAnalysis a
+  ON a.reflection_id = r.reflection_id
+WHERE r.visibility_id = 1;
+
+-- =========================
+-- REFLECTION SIGNALS VIEW
+-- =========================
+
+-- v_reflection_signals:
+-- Public reflections with their main NLP signals.
+CREATE VIEW v_reflection_signals AS
+SELECT
+  r.reflection_id,
+  r.source_type,
+  r.source_id,
+  r.created_at,
+  LENGTH(r.text)                     AS char_length,
+  r.text                             AS full_text,
+
+  a.provider,
+  a.language_code,
+  a.sentiment_label,
+  a.sentiment_positive,
+  a.sentiment_neutral,
+  a.sentiment_negative,
+  a.key_phrases,
+  a.category
+FROM Reflection r
+LEFT JOIN ReflectionAnalysis a
+  ON a.reflection_id = r.reflection_id
+WHERE r.visibility_id = 1;
 
 -- =========================
 -- CROSS-LAYER METRICS (Studies + Life)

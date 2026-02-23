@@ -135,3 +135,54 @@ Queries:
 
 This layer connects who I am (Identity) with where I work and contribute (System, Impact),
 using the same data-first, queryable approach as the rest of PURE.
+
+## Reflections & NLP signals
+
+The Reflections & NLP layer stores:
+
+- Reflections:
+  - Short or long-form notes about studies, events or career elements.
+  - Optionally linked to:
+    - Study sessions
+    - Events
+    - Engagements (work, education, volunteering)
+
+- ReflectionAnalysis:
+  - Output of Azure AI Language (or similar) over each reflection:
+    - language
+    - sentiment scores and label
+    - key phrases (stored as a simple comma-separated list)
+    - high-level category (learning, community, career, ...)
+
+The view:
+
+- v_reflection_signals
+
+exposes public reflections together with their main NLP signals.
+
+Queries:
+
+- 16_reflections_latest.sql — latest reflections with sentiment and category
+- 17_reflections_search.sql — simple LIKE-based text search
+- 18_reflections_by_category_sentiment.sql — aggregated counts by category and sentiment
+
+## Portfolio Search base view
+
+The view `v_portfolio_search_items` exposes a unified set of items
+that represent my portfolio:
+
+- Study topics (Studies Layer)
+- Events (Life Layer)
+- Engagements (Career & Roles Layer)
+- Contributions (talks, panels, workshops)
+- Reflections with NLP signals (Reflections & NLP Layer)
+
+Queries:
+
+- 19_portfolio_all_items.sql
+- 20_portfolio_search_by_text.sql
+- 21_portfolio_filter_by_type.sql
+
+This view is the logical base for future search experiences
+and for an eventual Azure AI Search index, without embedding
+any external service into PURE.

@@ -2,7 +2,32 @@
 
 All notable changes to PURE will be documented here.
 
-## [0.1.5] - 2026-02-21
+## [0.1.6] - 2026-02-23
+### Added
+- Reflections & NLP signals layer:
+  - `Reflection` table to store textual reflections linked to studies, events or career engagements
+  - `ReflectionAnalysis` table to store Azure AI Language outputs (sentiment, key phrases, categories)
+  - View `v_reflection_signals` for public reflections and their main NLP signals
+- NLP signal query pack:
+  - `16_reflections_latest.sql`
+  - `17_reflections_search.sql`
+  - `18_reflections_by_category_sentiment.sql`
+- Unified portfolio search view:
+  - `v_portfolio_search_items` combining:
+    - Study topics
+    - Events
+    - Career engagements
+    - Event contributions
+    - Reflections with NLP signals
+- Portfolio search query pack:
+  - `19_portfolio_all_items.sql`
+  - `20_portfolio_search_by_text.sql`
+  - `21_portfolio_filter_by_type.sql`
+- Documentation updates for:
+  - Start Here navigation (Reflections & NLP and Portfolio Search base)
+  - `db/README` and `README` to include the Reflections & NLP layer and to reference the unified search view
+
+## [0.1.5] - 2026-02-22
 ### Added
 - ML-ready view `v_ml_study_sessions` to represent study sessions as a tabular dataset
 - Query `13_ml_study_sessions_export.sql` for exporting the ML-ready dataset
