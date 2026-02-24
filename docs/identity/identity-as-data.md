@@ -31,6 +31,14 @@ Today, Identity is visible through:
   - Where I have worked
   - Where I contribute as a volunteer over time
 
+- Reflections & NLP signals:
+  - how I describe my own path in text
+  - how those texts are analysed:
+    - sentiment
+    - categories
+    - labels such as learning-win, community-pride or career-clarity
+  - all of it stored as data, not as screenshots or documents
+
 Identity is not a static description.
 It is a pattern across these layers.
 

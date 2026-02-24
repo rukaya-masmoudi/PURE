@@ -29,10 +29,12 @@ DROP TABLE IF EXISTS Community;
 DROP TABLE IF EXISTS SessionTag;
 DROP TABLE IF EXISTS TopicTag;
 
+DROP TABLE IF EXISTS PracticeResultMedia;
 DROP TABLE IF EXISTS PracticeResult;
 DROP TABLE IF EXISTS StudySession;
 DROP TABLE IF EXISTS Topic;
 
+DROP TABLE IF EXISTS CertificationMedia;
 DROP TABLE IF EXISTS CertificationAttempt;
 DROP TABLE IF EXISTS Certification;
 
@@ -49,6 +51,8 @@ DROP TABLE IF EXISTS LearningLevel;
 DROP TABLE IF EXISTS Category;
 DROP TABLE IF EXISTS Provider;
 
+DROP TABLE IF EXISTS ReflectionLabelAssignment;
+DROP TABLE IF EXISTS ReflectionLabel;
 DROP TABLE IF EXISTS ReflectionAnalysis;
 DROP TABLE IF EXISTS Reflection;
 
@@ -184,7 +188,7 @@ CREATE TABLE PracticeResult (
   attempt_status_id  INTEGER,
 
   feedback           TEXT,
-  evidence_path      TEXT,
+  evidence_url       TEXT,
 
   visibility_id      INTEGER NOT NULL,
   created_at         TEXT NOT NULL DEFAULT (datetime('now')),
@@ -197,6 +201,14 @@ CREATE TABLE PracticeResult (
 
 CREATE INDEX idx_practice_session ON PracticeResult(session_id);
 CREATE INDEX idx_practice_type    ON PracticeResult(result_type_id);
+
+CREATE TABLE PracticeResultMedia (
+  result_id INTEGER NOT NULL,
+  asset_id  INTEGER NOT NULL,
+  PRIMARY KEY (result_id, asset_id),
+  FOREIGN KEY (result_id) REFERENCES PracticeResult(result_id) ON DELETE CASCADE,
+  FOREIGN KEY (asset_id)  REFERENCES MediaAsset(asset_id) ON DELETE CASCADE
+);
 
 -- Tags (Topic-level + Session-level)
 CREATE TABLE TopicTag (
@@ -266,6 +278,19 @@ CREATE TABLE CertificationAttempt (
 
 CREATE INDEX idx_cert_attempt_cert ON CertificationAttempt(certification_id);
 CREATE INDEX idx_cert_attempt_date ON CertificationAttempt(exam_date);
+
+-- Certification ↔️ Media link
+CREATE TABLE CertificationMedia (
+  certification_id INTEGER NOT NULL,
+  asset_id         INTEGER NOT NULL,
+  PRIMARY KEY (certification_id, asset_id),
+
+  FOREIGN KEY (certification_id) REFERENCES Certification(certification_id) ON DELETE CASCADE,
+  FOREIGN KEY (asset_id)         REFERENCES MediaAsset(asset_id)         ON DELETE CASCADE
+);
+
+CREATE INDEX idx_certmedia_cert ON CertificationMedia(certification_id);
+CREATE INDEX idx_certmedia_asset ON CertificationMedia(asset_id);
 
 -- =========================
 -- LIFE LAYER (Impact Block)
@@ -555,6 +580,25 @@ CREATE INDEX idx_refanalysis_sentiment ON ReflectionAnalysis(sentiment_label);
 CREATE INDEX idx_refanalysis_category  ON ReflectionAnalysis(category);
 CREATE INDEX idx_refanalysis_vis       ON ReflectionAnalysis(visibility_id);
 
+-- Labels for reflections (multi-label classification)
+CREATE TABLE ReflectionLabel (
+  label_id     INTEGER PRIMARY KEY,
+  name         TEXT NOT NULL UNIQUE,
+  description  TEXT
+);
+
+CREATE TABLE ReflectionLabelAssignment (
+  reflection_id INTEGER NOT NULL,
+  label_id      INTEGER NOT NULL,
+  PRIMARY KEY (reflection_id, label_id),
+
+  FOREIGN KEY (reflection_id) REFERENCES Reflection(reflection_id) ON DELETE CASCADE,
+  FOREIGN KEY (label_id)      REFERENCES ReflectionLabel(label_id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_reflabel_reflection ON ReflectionLabelAssignment(reflection_id);
+CREATE INDEX idx_reflabel_label      ON ReflectionLabelAssignment(label_id);
+
 -- =========================
 -- PORTFOLIO SEARCH BASE VIEW
 -- =========================
@@ -690,7 +734,7 @@ WHERE r.visibility_id = 1;
 -- =========================
 
 -- v_reflection_signals:
--- Public reflections with their main NLP signals.
+-- Public reflections with their main NLP signals and labels.
 CREATE VIEW v_reflection_signals AS
 SELECT
   r.reflection_id,
@@ -707,7 +751,16 @@ SELECT
   a.sentiment_neutral,
   a.sentiment_negative,
   a.key_phrases,
-  a.category
+  a.category,
+
+  -- multi-label classification (comma-separated for convenience)
+  (
+    SELECT GROUP_CONCAT(l.name, ', ')
+    FROM ReflectionLabelAssignment rla
+    JOIN ReflectionLabel l ON l.label_id = rla.label_id
+    WHERE rla.reflection_id = r.reflection_id
+  ) AS labels_text
+
 FROM Reflection r
 LEFT JOIN ReflectionAnalysis a
   ON a.reflection_id = r.reflection_id

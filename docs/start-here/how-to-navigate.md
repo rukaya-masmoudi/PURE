@@ -140,6 +140,9 @@ Use:
 db/queries/16_reflections_latest.sql
 db/queries/17_reflections_search.sql
 db/queries/18_reflections_by_category_sentiment.sql
+db/queries/22_reflection_labels_overview.sql  
+db/queries/23_reflections_by_label.sql  
+db/queries/24_reflection_label_matrix.sql  
 
 ---
 

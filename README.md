@@ -77,6 +77,24 @@ Run:
 - db/queries/17_reflections_search.sql  
 - db/queries/18_reflections_by_category_sentiment.sql
 
+For more details:
+
+- docs/intelligence/overview.md
+- docs/intelligence/ai-language-mapping.md
+- docs/intelligence/azure-ai-language-ingestion.md
+
+#### Labels
+
+Run:
+
+- db/queries/22_reflection_labels_overview.sql
+- db/queries/23_reflections_by_label.sql
+- db/queries/24_reflection_label_matrix.sql
+
+#### Ingest Azure AI Language outputs (offline)
+
+python tools/ingest_reflection_analysis.py path/to/analysis.jsonl
+
 ### Portfolio Search (base)
 
 Run:
@@ -129,12 +147,16 @@ Those will come later, phase by phase, on top of this foundation.
 
 ### Reflections & NLP signals
 
-- Reflections anchored to studies, events and career engagements
-- NLP signals stored as data:
-  - sentiment (label + scores)
-  - key phrases
-  - high-level categories
-- Query pack in db/queries/ (16–18)
+- Signal Intelligence v1:
+  - Reflections with Azure AI Language signals:
+    - sentiment (label + scores)
+    - key phrases
+    - categories
+    - PII flag
+    - multi-label taxonomy
+  - Unified portfolio search view:
+    - v_portfolio_search_items
+  - Offline ingestion pipeline for Azure AI Language outputs
 
 PURE does not run Azure AI Language at build time.
 It stores and exposes the resulting signals as structured data.

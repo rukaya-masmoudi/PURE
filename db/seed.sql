@@ -89,7 +89,8 @@ INSERT INTO Tag (tag_id, name, description) VALUES
 (19, 'NER', NULL),
 (20, 'Translator', NULL),
 (21, 'Speech', NULL),
-(22, 'Azure AI Foundry', NULL);
+(22, 'Azure AI Foundry', NULL),
+(23, 'Azure AI Search', NULL);
 
 -- Topics
 DELETE FROM Topic;
@@ -143,14 +144,27 @@ INSERT INTO Topic (topic_id, name, provider_id, category_id, learning_level_id, 
 INSERT INTO Topic (topic_id, name, provider_id, category_id, learning_level_id, visibility_id, created_at) VALUES
 (15, 'Analyze text with Azure Language',                        2, 6, 2, 1, '2026-02-19 00:00:00'),
 (16, 'Create question answering solutions with Azure Language', 2, 6, 2, 1, '2026-02-19 00:00:00'),
-(17, 'Build a conversational language understanding model',     2, 6, 2, 1, '2026-02-20 00:00:00'),
-(18, 'Create custom text classification solutions',             2, 6, 2, 1, '2026-02-20 00:00:00'),
-(19, 'Custom named entity recognition',                         2, 6, 2, 1, '2026-02-21 00:00:00'),
-(20, 'Translate text with Azure Translator service',            2, 6, 2, 1, '2026-02-21 00:00:00'),
-(21, 'Create speech-enabled apps with Microsoft Foundry',       2, 6, 2, 1, '2026-02-22 00:00:00'),
-(22, 'Translate speech with the Azure Speech service',          2, 6, 2, 1, '2026-02-22 00:00:00'),
-(23, 'Develop an audio-enabled generative AI application',      2, 6, 2, 1, '2026-02-23 00:00:00'),
-(24, 'Develop an Azure AI Voice Live agent',                    2, 6, 2, 1, '2026-02-23 00:00:00');
+(17, 'Build a conversational language understanding model',     2, 6, 2, 1, '2026-02-19 00:00:00'),
+(18, 'Create custom text classification solutions',             2, 6, 2, 1, '2026-02-19 00:00:00'),
+(19, 'Custom named entity recognition',                         2, 6, 2, 1, '2026-02-19 00:00:00'),
+(20, 'Translate text with Azure Translator service',            2, 6, 2, 1, '2026-02-19 00:00:00'),
+(21, 'Create speech-enabled apps with Microsoft Foundry',       2, 6, 2, 1, '2026-02-19 00:00:00'),
+(22, 'Translate speech with the Azure Speech service',          2, 6, 2, 1, '2026-02-19 00:00:00'),
+(23, 'Develop an audio-enabled generative AI application',      2, 6, 2, 1, '2026-02-19 00:00:00'),
+(24, 'Develop an Azure AI Voice Live agent',                    2, 6, 2, 1, '2026-02-19 00:00:00');
+
+-- -------------------------
+-- Implement knowledge mining with Azure AI Search (Intermediate)
+-- -------------------------
+INSERT INTO Topic (topic_id, name, provider_id, category_id, learning_level_id, visibility_id, created_at) VALUES
+(25, 'Create an Azure AI Search solution',                                2, 4, 2, 1, '2026-02-24 00:00:00'),
+(26, 'Create a custom skill for Azure AI Search',                         2, 4, 2, 1, '2026-02-24 00:00:00'),
+(27, 'Create a knowledge store with Azure AI Search',                     2, 4, 2, 1, '2026-02-24 00:00:00'),
+(28, 'Implement advanced search features in Azure AI Search',             2, 4, 2, 1, '2026-02-24 00:00:00'),
+(29, 'Search data outside Azure in Azure AI Search using Azure Data Factory', 2, 4, 2, 1, '2026-02-24 00:00:00'),
+(30, 'Maintain an Azure AI Search solution',                              2, 4, 2, 1, '2026-02-24 00:00:00'),
+(31, 'Perform search reranking with semantic ranking in Azure AI Search', 2, 4, 2, 1, '2026-02-24 00:00:00'),
+(32, 'Perform vector search and retrieval in Azure AI Search',            2, 4, 2, 1, '2026-02-24 00:00:00');
 
 -- Topic tags
 DELETE FROM TopicTag;
@@ -194,6 +208,19 @@ INSERT INTO TopicTag (topic_id, tag_id) VALUES
 (23, 1), (23, 21), (23, 22),
 (24, 1), (24, 21), (24, 22);
 
+-- -------------------------
+-- Knowledge Mining tags
+-- -------------------------
+INSERT INTO TopicTag (topic_id, tag_id) VALUES
+(25, 1), (25, 4), (25, 23),
+(26, 1), (26, 4), (26, 23),
+(27, 1), (27, 4), (27, 23),
+(28, 1), (28, 4), (28, 23),
+(29, 1), (29, 4), (29, 23),
+(30, 1), (30, 4), (30, 23),
+(31, 1), (31, 4), (31, 23),
+(32, 1), (32, 4), (32, 23);
+
 -- Study sessions
 
 -- -------------------------
@@ -202,9 +229,7 @@ INSERT INTO TopicTag (topic_id, tag_id) VALUES
 
 DELETE FROM StudySession;
 
-INSERT INTO StudySession
-(session_id, topic_id, started_at, ended_at, duration_minutes, difficulty, energy, notes, visibility_id, status_id)
-VALUES
+INSERT INTO StudySession (session_id, topic_id, started_at, ended_at, duration_minutes, difficulty, energy, notes, visibility_id, status_id) VALUES
 -- =========================
 -- DONE
 -- =========================
@@ -255,18 +280,40 @@ VALUES
 
 -- 2026-02-23
 (23, 23, '2026-02-23 19:11:00', '2026-02-23 20:06:00', 55, 5, 3, NULL, 1, 1),
-(24, 24, '2026-02-23 20:20:00', '2026-02-23 21:11:00', 51, 5, 3, NULL, 1, 1);
+(24, 24, '2026-02-23 20:20:00', '2026-02-23 21:11:00', 51, 5, 3, NULL, 1, 1),
+
+-- 2026-02-24
+(25, 25, '2026-02-24 19:00:00', '2026-02-24 19:50:00', 50, 4, 3, NULL, 1, 1),
+(26, 26, '2026-02-24 19:55:00', '2026-02-24 20:45:00', 50, 4, 3, NULL, 1, 1),
+(27, 27, '2026-02-24 20:50:00', '2026-02-24 21:40:00', 50, 4, 3, NULL, 1, 1),
+
+-- =========================
+-- PLANNED
+-- =========================
+
+-- 2026-02-25
+(28, 28, '2026-02-25 19:00:00', '2026-02-25 19:50:00', 50, 4, 3, NULL, 1, 2),
+(29, 29, '2026-02-25 20:00:00', '2026-02-25 20:40:00', 40, 4, 3, NULL, 1, 2),
+(30, 30, '2026-02-25 20:50:00', '2026-02-25 21:40:00', 50, 4, 3, NULL, 1, 2),
+
+-- 2026-02-26
+(31, 31, '2026-02-26 19:00:00', '2026-02-26 19:50:00', 50, 4, 3, NULL, 1, 2),
+(32, 32, '2026-02-26 20:00:00', '2026-02-26 20:50:00', 50, 4, 3, NULL, 1, 2);
+
+-- Practice results
+DELETE FROM PracticeResult;
+
+INSERT INTO PracticeResult (result_id, session_id, result_type_id, attempt_number, score, attempt_status_id, feedback, evidence_url, visibility_id, created_at) VALUES
+(1, 24, 1, 1, 88, 1, 'Microsoft Applied Skills: Build a natural language processing solution with Azure AI Language', 'https://learn.microsoft.com/en-us/users/rukaya/credentials/3bae28df7468e920', 1, '2026-02-23 21:30:00');
 
 -- Certifications
 DELETE FROM Certification;
 
-INSERT INTO Certification
-(certification_id, code, name, provider_id, category_id, cert_tier_id, official_url)
-VALUES
-(1, 'PL-400', 'Microsoft Certified: Power Platform Developer Associate', 1, 5, 2, NULL),
-(2, 'AZ-204', 'Microsoft Certified: Azure Developer Associate',          1, 3, 2, NULL),
-(3, 'DVA-C02', 'AWS Certified Developer – Associate',                    3, 3, 2, NULL),
-(4, 'AI-102',  'Microsoft Certified: Azure AI Engineer Associate',       1, 4, 2, NULL);
+INSERT INTO Certification (certification_id, code, name, provider_id, category_id, cert_tier_id, official_url) VALUES
+(1, 'PL-400', 'Microsoft Certified: Power Platform Developer Associate', 1, 5, 2, 'https://learn.microsoft.com/api/credentials/share/en-us/Rukaya/C2CE3CE593A5D7E3?sharingId=CC0BDDAD2772AF76'),
+(2, 'AZ-204', 'Microsoft Certified: Azure Developer Associate',          1, 3, 2, 'https://learn.microsoft.com/api/credentials/share/es-es/Rukaya/2E58B6A8209C0581?sharingId=CC0BDDAD2772AF76'),
+(3, 'DVA-C02', 'AWS Certified Developer – Associate',                    3, 3, 2, 'https://www.credly.com/badges/9b66d1ee-f6c6-4424-9526-010a2375210f/public_url'),
+(4, 'AI-102',  'Microsoft Certified: Azure AI Engineer Associate',       1, 4, 2, 'https://learn.microsoft.com/api/credentials/share/en-us/Rukaya/921C08034138DABA?sharingId=CC0BDDAD2772AF76');
 
 -- =========================
 -- LIFE LAYER
@@ -306,72 +353,12 @@ INSERT INTO Venue (venue_id, name, address, city_id, notes) VALUES
 DELETE FROM Event;
 
 INSERT INTO Event (event_id, name, community_id, venue_id, starts_at, ends_at, language, external_url, visibility_id) VALUES
-(
-  1,
-  'CodeMeet after Tech– Donde la comunidad se encuentra',
-  1,
-  1,
-  '2026-02-18 18:15:00',
-  '2026-02-18 20:30:00',
-  'Spanish',
-  'https://community.codemotion.com/codemotion-espana/meetups/codemeet-after-tech-donde-la-comunidad-se-encuentra',
-  1
-),
-(
-  2,
-  'EmpleaTech 2026 (Edición Madrid)',
-  2,
-  2,
-  '2026-02-04 09:20:00',
-  '2026-02-04 14:00:00',
-  'Spanish',
-  'https://empleatech.es/agenda/',
-  1
-),
-(
-  3,
-  'Season of AI – MCP by AzureBrains',
-  3,
-  3,
-  '2026-01-29 18:30:00',
-  '2026-01-29 19:30:00',
-  'Spanish',
-  'https://www.meetup.com/azurebrains/events/312537177/',
-  1
-),
-(
-  4,
-  'Fintech CONF 2026',
-  4,
-  4,
-  '2026-01-28 18:45:00',
-  '2026-01-28 21:30:00',
-  'Spanish',
-  'https://luma.com/soyngnfn?tk=dHq7fr',
-  1
-),
-(
-  5,
-  'Con licencia para razonar: IA al estilo 007',
-  5,
-  5,
-  '2026-01-21 18:30:00',
-  '2026-01-21 20:30:00',
-  'Spanish',
-  'https://www.meetup.com/es-ES/meetup-de-innoit-consulting-en-madrid/events/312499540/',
-  1
-),
-(
-  6,
-  'Global Power Platform Bootcamp Madrid 2026',
-  10,
-  3,
-  '2026-02-14 09:00:00',
-  '2026-02-14 18:00:00',
-  'Spanish',
-  'https://www.eventbrite.es/e/entradas-global-power-platform-bootcamp-madrid-2026-1981590026111',
-  1
-);
+(1,'CodeMeet after Tech– Donde la comunidad se encuentra', 1, 1, '2026-02-18 18:15:00', '2026-02-18 20:30:00', 'Spanish', 'https://community.codemotion.com/codemotion-espana/meetups/codemeet-after-tech-donde-la-comunidad-se-encuentra', 1),
+(2, 'EmpleaTech 2026 (Edición Madrid)', 2, 2, '2026-02-04 09:20:00', '2026-02-04 14:00:00', 'Spanish', 'https://empleatech.es/agenda/', 1),
+(3, 'Season of AI – MCP by AzureBrains', 3, 3, '2026-01-29 18:30:00', '2026-01-29 19:30:00', 'Spanish', 'https://www.meetup.com/azurebrains/events/312537177/', 1),
+(4, 'Fintech CONF 2026', 4, 4, '2026-01-28 18:45:00', '2026-01-28 21:30:00', 'Spanish', 'https://luma.com/soyngnfn?tk=dHq7fr', 1),
+(5, 'Con licencia para razonar: IA al estilo 007', 5, 5, '2026-01-21 18:30:00', '2026-01-21 20:30:00', 'Spanish', 'https://www.meetup.com/es-ES/meetup-de-innoit-consulting-en-madrid/events/312499540/', 1),
+(6, 'Global Power Platform Bootcamp Madrid 2026', 10, 3, '2026-02-14 09:00:00', '2026-02-14 18:00:00', 'Spanish', 'https://www.eventbrite.es/e/entradas-global-power-platform-bootcamp-madrid-2026-1981590026111', 1);
 
 -- Role catalog
 DELETE FROM Role;
@@ -396,71 +383,24 @@ INSERT INTO EventParticipation (participation_id, person_name, event_id, role_id
 DELETE FROM Contribution;
 
 INSERT INTO Contribution (contribution_id, event_id, type, title, description, starts_at, ends_at, visibility_id) VALUES
-(
-  1,
-  2,
-  'talk',
-  'Ser visible para poder existir: Out in Tech, identidad, resiliencia y crecimiento profesional',
-  'Tech Career Stories Room (Sala 7) — Charla 5. Shared with Patricia Rodríguez Vaquero.',
-  '2026-02-04 11:40:00',
-  '2026-02-04 11:55:00',
-  1
-);
+(1, 2, 'talk', 'Ser visible para poder existir: Out in Tech, identidad, resiliencia y crecimiento profesional', 'Tech Career Stories Room (Sala 7) — Charla 5. Shared with Patricia Rodríguez Vaquero.', '2026-02-04 11:40:00', '2026-02-04 11:55:00', 1);
 
 -- Media assets
 DELETE FROM MediaAsset;
 
 INSERT INTO MediaAsset (asset_id, asset_type, taken_at, storage_ref, caption, visibility_id) VALUES
-(
-  1,
-  'PHOTO',
-  '2026-02-18 19:30:00',
-  'docs/assets/events/codemeet-after-tech-cover.jpg',
-  'Panel en CodeMeet after Tech (Codemotion España).',
-  1
-),
-(
-  2,
-  'PHOTO',
-  '2026-02-04 11:50:00',
-  'docs/assets/events/empleatech-2026-cover.jpg',
-  'Charla en EmpleaTech 2026 en La Nave (Madrid).',
-  1
-),
-(
-  3,
-  'PHOTO',
-  '2026-01-29 19:00:00',
-  'docs/assets/events/azurebrains-season-ai-mcp-cover.jpg',
-  'Presentación Season of AI – MCP by AzureBrains.',
-  1
-),
-(
-  4,
-  'PHOTO',
-  '2026-01-28 19:00:00',
-  'docs/assets/events/fintech-conf-2026-cover.jpg',
-  'Asistencia a Fintech CONF 2026 en las oficinas de Celonis (Madrid).',
-  1
-),
-(
-  5,
-  'PHOTO',
-  '2026-01-21 19:30:00',
-  'docs/assets/events/con-licencia-ia-007-cover.jpg',
-  'Meetup "Con licencia para razonar: IA al estilo 007" de InnoIT Consulting en Meet&Go (Madrid).',
-  1
-),
-(
-  6,
-  'PHOTO',
-  '2026-02-21 13:00:00',
-  'docs/assets/events/global-power-platform-bootcamp-madrid-2026-cover.jpg',
-  'Asistencia al Global Power Platform Bootcamp Madrid 2026.',
-  1
-);
+(1, 'PHOTO', '2026-02-18 19:30:00', 'docs/assets/events/codemeet-after-tech-cover.jpg', 'Panel en CodeMeet after Tech (Codemotion España).', 1),
+(2, 'PHOTO', '2026-02-04 11:50:00', 'docs/assets/events/empleatech-2026-cover.jpg', 'Charla en EmpleaTech 2026 en La Nave (Madrid).', 1),
+(3, 'PHOTO', '2026-01-29 19:00:00', 'docs/assets/events/azurebrains-season-ai-mcp-cover.jpg', 'Presentación Season of AI – MCP by AzureBrains.', 1),
+(4, 'PHOTO', '2026-01-28 19:00:00', 'docs/assets/events/fintech-conf-2026-cover.jpg', 'Asistencia a Fintech CONF 2026 en las oficinas de Celonis (Madrid).', 1),
+(5, 'PHOTO', '2026-01-21 19:30:00', 'docs/assets/events/con-licencia-ia-007-cover.jpg', 'Meetup "Con licencia para razonar: IA al estilo 007" de InnoIT Consulting en Meet&Go (Madrid).', 1),
+(6, 'PHOTO', '2026-02-21 13:00:00', 'docs/assets/events/global-power-platform-bootcamp-madrid-2026-cover.jpg', 'Asistencia al Global Power Platform Bootcamp Madrid 2026.', 1),
+(7, 'IMAGE', '2026-02-23 23:30:00', 'docs/assets/certifications/applied-skills/applied-skills-azure-ai-language.jpg', 'Microsoft Applied Skills: Build a natural language processing solution with Azure AI Language', 1),
+(8, 'IMAGE', '2024-01-15 12:00:00', 'docs/assets/certifications/pl-400-badge.jpg', 'Microsoft Certified: Power Platform Developer Associate (PL-400).', 1),
+(9, 'IMAGE', '2024-03-10 12:00:00', 'docs/assets/certifications/az-204-badge.jpg', 'Microsoft Certified: Azure Developer Associate (AZ-204).', 1),
+(10, 'IMAGE', '2024-09-01 12:00:00', 'docs/assets/certifications/ai-102-badge.jpg', 'Microsoft Certified: Azure AI Engineer Associate (AI-102).', 1);
 
--- Event media
+-- Event ↔ Media links
 DELETE FROM EventMedia;
 
 INSERT INTO EventMedia (event_id, asset_id, is_cover) VALUES
@@ -471,91 +411,43 @@ INSERT INTO EventMedia (event_id, asset_id, is_cover) VALUES
 (5, 5, 1),
 (6, 6, 1);
 
+-- PracticeResult ↔ Media links
+DELETE FROM PracticeResultMedia;
+
+INSERT INTO PracticeResultMedia (result_id, asset_id) VALUES 
+(1, 7);
+
+-- Certification ↔ Media links
+DELETE FROM CertificationMedia;
+
+INSERT INTO CertificationMedia (certification_id, asset_id) VALUES
+(1, 8),
+(2, 9),
+(4, 10);
+
 -- Posts
 DELETE FROM Post;
 
-INSERT INTO Post (
-  post_id,
-  platform,
-  url,
-  published_at,
-  title,
-  notes,
-  visibility_id
-) VALUES
-(
-  1,
-  'LinkedIn',
-  'https://www.linkedin.com/posts/rukaya-masmoudi_alcachofas-activity-7422911684425674752-jhbi?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI',
-  '2026-01-30 10:00:00',
-  'Post en LinkedIn sobre Fintech CONF 2026 (Arcasiles)',
-  'Publicación en LinkedIn comentando la experiencia en Fintech CONF 2026 organizado por Arcasiles en las oficinas de Celonis (Madrid).',
-  1
-),
-(
-  2,
-  'LinkedIn',
-  'https://www.linkedin.com/posts/rukaya-masmoudi_el-mi%C3%A9rcoles-estuve-en-el-meetup-con-licencia-activity-7421114622314704897-SYqr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI',
-  '2026-01-23 10:00:00',
-  'Post en LinkedIn sobre el meetup "Con licencia para razonar: IA al estilo 007"',
-  'Publicación en LinkedIn resumiendo la charla de Celeste Tania Sánchez Fresneda sobre agentes de IA al estilo James Bond en el meetup de InnoIT Consulting.',
-  1
-);
+INSERT INTO Post (post_id, platform, url, published_at, title, notes, visibility_id) VALUES
+(1, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_alcachofas-activity-7422911684425674752-jhbi?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI', '2026-01-30 10:00:00', 'Post en LinkedIn sobre Fintech CONF 2026 (Arcasiles)', 'Publicación en LinkedIn comentando la experiencia en Fintech CONF 2026 organizado por Arcasiles en las oficinas de Celonis (Madrid).', 1),
+(2, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_el-mi%C3%A9rcoles-estuve-en-el-meetup-con-licencia-activity-7421114622314704897-SYqr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI', '2026-01-23 10:00:00', 'Post en LinkedIn sobre el meetup "Con licencia para razonar: IA al estilo 007"', 'Publicación en LinkedIn resumiendo la charla de Celeste Tania Sánchez Fresneda sobre agentes de IA al estilo James Bond en el meetup de InnoIT Consulting.', 1),
+(3, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_powerplatform-gppb2026-community-activity-7432008948150452224-iJAW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI', '2026-02-23 11:30:00', 'Post en LinkedIn sobre el Global Power Platform Bootcamp Madrid 2026', 'Publicación en LinkedIn contando la experiencia en el Global Power Platform Bootcamp Madrid 2026, destacando sesiones y el ambiente de comunidad.', 1);
 
 -- Link Event ↔ Post
 DELETE FROM EventPost;
 
 INSERT INTO EventPost (event_id, post_id) VALUES
 (4, 1),
-(5, 2);
+(5, 2),
+(6, 3); 
 
 -- Organizations (companies / educational centers)
 INSERT INTO Organization (organization_id, name, org_type, website_url, city_id, description, visibility_id) VALUES
-(
-  1,
-  'Tajamar',
-  'education',
-  'https://tajamar.es/',
-  1,
-  'Centro educativo',
-  1
-),
-(
-  2,
-  'Linkia',
-  'education',
-  'https://linkiafp.es/',
-  1,
-  'Centro educativo',
-  1
-),
-(
-  3,
-  'Infoavan',
-  'company',
-  'https://infoavan.com/',
-  1,
-  'Empresa de consultoría especializada en tecnologías Microsoft.',
-  1
-),
-(
-  4,
-  'Creatiburón',
-  'company',
-  'https://www.creatiburon.com/',
-  1,
-  'Estudio de diseño gráfico y desarrollo web especializado en WordPress, WooCommerce y estrategia digital.',
-  1
-),
-(
-  5,
-  'Prosegur',
-  'company',
-  'https://www.prosegur.es/',
-  1,
-  'Empresa de servicios globales de seguridad y soporte operativo.',
-  1
-);
+(1, 'Tajamar', 'education', 'https://tajamar.es/', 1, 'Centro educativo', 1),
+(2, 'Linkia', 'education', 'https://linkiafp.es/', 1, 'Centro educativo', 1),
+(3, 'Infoavan', 'company', 'https://infoavan.com/', 1, 'Empresa de consultoría especializada en tecnologías Microsoft.', 1),
+(4, 'Creatiburón', 'company', 'https://www.creatiburon.com/', 1, 'Estudio de diseño gráfico y desarrollo web especializado en WordPress, WooCommerce y estrategia digital.', 1),
+(5, 'Prosegur', 'company', 'https://www.prosegur.es/', 1, 'Empresa de servicios globales de seguridad y soporte operativo.', 1);
 
 -- Engagement types
 INSERT INTO EngagementType (engagement_type_id, name, notes) VALUES
@@ -567,149 +459,23 @@ INSERT INTO EngagementType (engagement_type_id, name, notes) VALUES
 -- Engagements: education, work, volunteering
 
 -- Education
-INSERT INTO Engagement
-(engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id)
-VALUES
-(
-  1,
-  1,
-  1,
-  NULL,
-  'Máster en Desarrollo Web Full Stack + MultiCloud',
-  '2023-10-01',
-  '2024-06-30',
-  0,
-  1,
-  'Máster orientado a desarrollo web Full Stack con foco en front-end, back-end y nubes (Azure y AWS).',
-  1
-),
-(
-  2,
-  1,
-  2,
-  NULL,
-  'Grado Superior en Desarrollo de Aplicaciones Web (DAW)',
-  '2021-09-01',
-  '2023-05-31',
-  0,
-  1,
-  'Formación en desarrollo de aplicaciones web (DAW)',
-  1
-);
+INSERT INTO Engagement (engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id) VALUES
+(1, 1, 1, NULL, 'Máster en Desarrollo Web Full Stack + MultiCloud', '2023-10-01', '2024-06-30', 0, 1, 'Máster orientado a desarrollo web Full Stack con foco en front-end, back-end y nubes (Azure y AWS).', 1),
+(2, 1, 2, NULL, 'Grado Superior en Desarrollo de Aplicaciones Web (DAW)', '2021-09-01', '2023-05-31', 0, 1, 'Formación en desarrollo de aplicaciones web (DAW)', 1);
 
 -- Work
-INSERT INTO Engagement
-(engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id)
-VALUES
-(
-  3,
-  2,
-  3,
-  NULL,
-  'Technical Consultant',
-  '2024-09-01',
-  NULL,
-  1,
-  1,
-  'Rol como consultora técnica trabajando con tecnologías Microsoft especializada en inteligencia artificial.',
-  1
-),
-(
-  4,
-  2,
-  4,
-  NULL,
-  'Desarrolladora y Diseñadora Web en WordPress',
-  '2023-04-01',
-  '2024-09-30',
-  0,
-  1,
-  'Desarrollo y diseño de sitios web en WordPress y WooCommerce, maquetación con HTML/CSS, diseño con Divi, SEO y accesibilidad web.',
-  1
-),
-(
-  5,
-  2,
-  5,
-  NULL,
-  'Líder del equipo de Auxiliares en Ciudad Financiera del BBVA',
-  '2017-10-01',
-  '2023-04-30',
-  0,
-  1,
-  'Gestión de equipo, coordinación operativa y mejora de eficiencia mediante herramientas digitales en Ciudad Financiera del BBVA.',
-  1
-);
+INSERT INTO Engagement (engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id) VALUES
+(3, 2, 3, NULL, 'Technical Consultant', '2024-09-01', NULL, 1, 1, 'Rol como consultora técnica trabajando con tecnologías Microsoft especializada en inteligencia artificial.', 1),
+(4, 2, 4, NULL, 'Desarrolladora y Diseñadora Web en WordPress', '2023-04-01', '2024-09-30', 0, 1, 'Desarrollo y diseño de sitios web en WordPress y WooCommerce, maquetación con HTML/CSS, diseño con Divi, SEO y accesibilidad web.', 1),
+(5, 2, 5, NULL, 'Líder del equipo de Auxiliares en Ciudad Financiera del BBVA', '2017-10-01', '2023-04-30', 0, 1, 'Gestión de equipo, coordinación operativa y mejora de eficiencia mediante herramientas digitales en Ciudad Financiera del BBVA.', 1);
 
 -- Volunteering
-INSERT INTO Engagement
-(engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id)
-VALUES
-(
-  6,
-  3,
-  NULL,
-  6,
-  'Co-fundadora y organizadora',
-  '2025-05-01',
-  NULL,
-  1,
-  1,
-  'Co-fundadora de una comunidad tecnológica centrada en eventos, contenidos y espacios formativos conectando tecnología y diseño.',
-  1
-),
-(
-  7,
-  3,
-  NULL,
-  3,
-  'Gestión de eventos y difusión técnica',
-  '2025-05-01',
-  NULL,
-  1,
-  1,
-  'Colaboración en la organización y difusión de eventos técnicos centrados en Azure.',
-  1
-),
-(
-  8,
-  3,
-  NULL,
-  7,
-  'Desarrollo, mantenimiento y actualización web',
-  '2025-05-01',
-  NULL,
-  1,
-  1,
-  'Gestión técnica de la web de W4TT, mantenimiento y actualización continua para asegurar correcto funcionamiento y contenido actualizado.',
-  1
-),
-(
-  9,
-  3,
-  NULL,
-  8,
-  'Co-fundadora y organizadora',
-  '2024-11-01',
-  NULL,
-  1,
-  1,
-  'Co-fundadora de un meetup técnico orientado a tecnologías Microsoft, cloud, datos e IA para talento femenino y personas no binarias.',
-  1
-),
-(
-  10,
-  3,
-  NULL,
-  9,
-  'Young Rider',
-  '2023-10-01',
-  '2024-06-30',
-  0,
-  1,
-  'Participación en la comunidad Tech Riders, dando visibilidad a eventos y actividades tecnológicas desde Tajamar.',
-  1
-);
+INSERT INTO Engagement (engagement_id, engagement_type_id, organization_id, community_id, title, started_on, ended_on, is_current, city_id, description, visibility_id) VALUES
+(6, 3, NULL, 6, 'Co-fundadora y organizadora', '2025-05-01', NULL, 1, 1, 'Co-fundadora de una comunidad tecnológica centrada en eventos, contenidos y espacios formativos conectando tecnología y diseño.', 1),
+(7, 3, NULL, 3, 'Gestión de eventos y difusión técnica', '2025-05-01', NULL, 1, 1, 'Colaboración en la organización y difusión de eventos técnicos centrados en Azure.', 1),
+(8, 3, NULL, 7, 'Desarrollo, mantenimiento y actualización web', '2025-05-01', NULL, 1, 1, 'Gestión técnica de la web de W4TT, mantenimiento y actualización continua para asegurar correcto funcionamiento y contenido actualizado.', 1),
+(9, 3, NULL, 8, 'Co-fundadora y organizadora', '2024-11-01', NULL, 1, 1, 'Co-fundadora de un meetup técnico orientado a tecnologías Microsoft, cloud, datos e IA para talento femenino y personas no binarias.', 1),
+(10, 3, NULL, 9, 'Young Rider', '2023-10-01', '2024-06-30', 0, 1, 'Participación en la comunidad Tech Riders, dando visibilidad a eventos y actividades tecnológicas desde Tajamar.', 1);
 
 -- =========================
 -- REFLECTIONS & NLP SIGNALS (seed)
@@ -1314,3 +1080,60 @@ INSERT INTO ReflectionAnalysis (
   1,
   '2024-11-15 21:05:00'
 );
+
+-- =========================
+-- REFLECTION LABELS (multi-label)
+-- =========================
+
+DELETE FROM ReflectionLabelAssignment;
+DELETE FROM ReflectionLabel;
+
+INSERT INTO ReflectionLabel (label_id, name, description) VALUES
+(1,  'foundations',        'Fundamentos técnicos y bases conceptuales'),
+(2,  'machine-learning',   'Aprendizaje automático y modelos predictivos'),
+(3,  'azure',              'Tecnologías del ecosistema Azure'),
+(4,  'nlp',                'Procesamiento de lenguaje natural'),
+(5,  'community',          'Eventos, networking y comunidad'),
+(6,  'career-growth',      'Evolución profesional y trayectoria'),
+(7,  'resilience',         'Esfuerzo, superación y disciplina'),
+(8,  'identity',           'Marca personal y propósito'),
+(9,  'leadership',         'Gestión de equipos y liderazgo'),
+(10, 'creativity',         'Creatividad y narrativa aplicada a tecnología'),
+(11, 'power-platform',     'Tecnologías Power Platform'),
+(12, 'ai-agents',          'Agentes, IA generativa y automatización');
+
+-- =========================
+-- REFLECTION LABEL ASSIGNMENTS
+-- =========================
+
+INSERT INTO ReflectionLabelAssignment (reflection_id, label_id) VALUES
+
+-- STUDY
+(1, 1), (1, 3),                        -- foundations + azure
+(2, 1), (2, 3),                        -- foundations + azure
+(3, 1), (3, 3),                        -- analytics + azure
+(4, 2), (4, 3),                        -- ML + azure
+(5, 2),                                -- ML
+(6, 2), (6, 3),                        -- ML + azure
+(7, 4), (7, 3),                        -- NLP + azure
+(8, 4),                                -- NLP
+(9, 4), (9, 12),                       -- NLP + AI agents
+(10, 12), (10, 2),                     -- generative AI + ML
+
+-- EVENTS
+(11, 5),                               -- community
+(12, 5), (12, 8),                      -- community + identity
+(13, 5), (13, 12),                     -- community + AI agents
+(14, 5), (14, 10),                     -- community + creativity
+(15, 5), (15, 12),                     -- community + AI agents
+(16, 5), (16, 11),                     -- community + power-platform
+
+-- ENGAGEMENTS
+(17, 6), (17, 7),                      -- career + resilience
+(18, 6), (18, 7),                      -- career + resilience
+(19, 6),                               -- career
+(20, 6), (20, 10),                     -- career + creativity
+(21, 6), (21, 9), (21, 7),             -- career + leadership + resilience
+(22, 5), (22, 8),                      -- community + identity
+(23, 5), (23, 8),                      -- community + identity
+(24, 5), (24, 8), (24, 3);             -- community + identity + azure

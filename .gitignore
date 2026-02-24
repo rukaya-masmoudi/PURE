@@ -220,5 +220,7 @@ pure.db
 *.db-wal
 *.db-shm
 .vscode/
-data/
 .vs/
+
+# Azure AI Language ingestion artifacts
+*.jsonl
