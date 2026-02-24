@@ -166,6 +166,51 @@ Queries:
 - 17_reflections_search.sql — simple LIKE-based text search
 - 18_reflections_by_category_sentiment.sql — aggregated counts by category and sentiment
 
+### Labels (multi-label classification)
+
+Reflections can be classified with multiple labels:
+
+- `ReflectionLabel`:
+  - Catalog of available labels
+
+- `ReflectionLabelAssignment`:
+  - Link table between reflections and labels (N-to-N)
+
+The view `v_reflection_signals` includes a `labels_text` column
+with a comma-separated list of labels assigned to each reflection.
+
+Queries:
+
+- `22_reflection_labels_overview.sql`
+- `23_reflections_by_label.sql`
+- `24_reflection_label_matrix.sql`
+
+### Ingestion
+
+External tools (not part of this repository) are expected to:
+
+- read reflections from the database, and
+- call Azure AI Language,
+
+then export the results to a JSONL file matching:
+
+- `docs/intelligence/azure-ai-language-ingestion.md`
+
+Use:
+
+- `tools/ingest_reflection_analysis.py`
+
+to ingest that JSONL into:
+
+- `ReflectionAnalysis`
+- `ReflectionLabel` and `ReflectionLabelAssignment`.
+
+For a high-level view of how this connects to Azure AI Language, see:
+
+- docs/intelligence/overview.md
+- docs/intelligence/ai-language-mapping.md
+- docs/intelligence/azure-ai-language-ingestion.md
+
 ## Portfolio Search base view
 
 The view `v_portfolio_search_items` exposes a unified set of items

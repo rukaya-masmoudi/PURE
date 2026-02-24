@@ -94,26 +94,34 @@ Questions you can answer:
 
 ---
 
-## Intelligence (locked)
+### Intelligence
 
-Intelligence will be the layer where AI is applied **on top of** PURE.
+What is active today (Signal Intelligence v1):
 
-It will not be:
+- Reflections & NLP signals:
+  - sentiment, key phrases, categories, labels
+  - anchored to studies, events and career
 
-- “Random AI demos”
-- “Disconnected notebooks”
+- Portfolio Search base:
+  - unified view:
+    - topics
+    - events
+    - engagements
+    - contributions
+    - reflections
+  - ready to map to a future Azure AI Search index
 
-It will be:
+- Azure AI Language ingestion:
+  - JSONL contract
+  - offline ingestion tool
 
-- NLP and search over my own trajectory
-- RAG on curated, structured data
-- Assistants that understand this system
+Not implemented yet (reserved for later phases):
 
-This block is intentionally locked until:
-
-- The data foundations are stable
-- The Studies and Life blocks are coherent
-- The roadmap of certifications reaches the right point
+- RAG over PURE data
+- vector embeddings
+- assistants and chat interfaces
+- semantic search and full-text indexing
+- multi-modal intelligence
 
 ---
 

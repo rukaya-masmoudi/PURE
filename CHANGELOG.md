@@ -2,6 +2,34 @@
 
 All notable changes to PURE will be documented here.
 
+## [0.1.7] - 2026-02-24
+### Added
+- Multi-label classification for reflections:
+  - `ReflectionLabel` catalog
+  - `ReflectionLabelAssignment` link table (N-to-N)
+- Extended view:
+  - `v_reflection_signals` now includes a `labels_text` field with all labels assigned to each reflection
+- Reflection label query pack:
+  - `22_reflection_labels_overview.sql`
+  - `23_reflections_by_label.sql`
+  - `24_reflection_label_matrix.sql`
+- Azure AI Language ingestion contract:
+  - `docs/intelligence/azure-ai-language-ingestion.md` describing the JSONL data contract
+- Offline ingestion tool:
+  - `tools/ingest_reflection_analysis.py` to ingest Azure AI Language outputs into:
+    - `ReflectionAnalysis`
+    - `ReflectionLabel` and `ReflectionLabelAssignment`
+- Intelligence documentation for Signal Intelligence v1:
+  - `docs/intelligence/overview.md`
+  - `docs/intelligence/ai-language-mapping.md`
+- Map and Identity updates:
+  - Intelligence block in `docs/map/overview.md` now explicitly describes Signal Intelligence v1
+  - Identity doc updated to include Reflections & NLP signals as part of Identity-as-data
+- Documentation updates for:
+  - Reflections & NLP navigation in `docs/start-here/how-to-navigate.md`
+  - Root `README` updated with Signal Intelligence v1 scope and links to Intelligence docs
+  - `db/README` updated to point to Intelligence documentation for Reflections & NLP
+
 ## [0.1.6] - 2026-02-23
 ### Added
 - Reflections & NLP signals layer:
