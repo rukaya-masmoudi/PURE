@@ -2,6 +2,19 @@
 
 All notable changes to PURE will be documented here.
 
+## [0.1.8] - 2026-03-02
+### Added
+- Azure AI Search index design (spec only):
+  - docs/intelligence/azure-ai-search-index-design.md describing:
+    - field design
+    - mapping from v_portfolio_search_items
+    - logical index schema
+    - governance and scope
+- Documentation updates for:
+  - Start Here navigation (docs/start-here/how-to-navigate.md) to reference the search index design
+  - Intelligence block in docs/map/overview.md to include the Azure AI Search index spec
+  - Root README to mention Knowledge Mining (design-level) and link to the index design doc
+
 ## [0.1.7] - 2026-02-24
 ### Added
 - Multi-label classification for reflections:

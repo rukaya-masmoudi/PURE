@@ -168,6 +168,27 @@ db/queries/21_portfolio_filter_by_type.sql
 
 ---
 
+## Next: Search over PURE
+
+The unified view:
+
+- v_portfolio_search_items
+
+is also the logical source for a future Azure AI Search index.
+
+The index design is documented in:
+
+- docs/intelligence/azure-ai-search-index-design.md
+
+At this stage PURE only defines:
+
+- what should be searchable
+- how fields are structured
+
+Actual Azure resources will be introduced in later phases.
+
+---
+
 ## What is intentionally NOT here yet
 
 - AI agents

@@ -166,6 +166,16 @@ INSERT INTO Topic (topic_id, name, provider_id, category_id, learning_level_id, 
 (31, 'Perform search reranking with semantic ranking in Azure AI Search', 2, 4, 2, 1, '2026-02-24 00:00:00'),
 (32, 'Perform vector search and retrieval in Azure AI Search',            2, 4, 2, 1, '2026-02-24 00:00:00');
 
+-- -------------------------
+-- Develop AI agents using Microsoft Azure OpenAI and Semantic Kernel (Intermediate)
+-- -------------------------
+INSERT INTO Topic (topic_id, name, provider_id, category_id, learning_level_id, visibility_id, created_at) VALUES
+(33, 'Build your kernel',                                   2, 4, 2, 1, '2026-02-28 00:00:00'),
+(34, 'Run prompts with Semantic Kernel',                    2, 4, 2, 1, '2026-02-28 00:00:00'),
+(35, 'Create Semantic Kernel plugins',                      2, 4, 2, 1, '2026-02-28 00:00:00'),
+(36, 'Apply filters on functions',                          2, 4, 2, 1, '2026-02-28 00:00:00'),
+(37, 'Guided project - Create a DevOps Assistant with the Semantic Kernel SDK', 2, 4, 2, 1, '2026-02-28 00:00:00');
+
 -- Topic tags
 DELETE FROM TopicTag;
 
@@ -220,6 +230,16 @@ INSERT INTO TopicTag (topic_id, tag_id) VALUES
 (30, 1), (30, 4), (30, 23),
 (31, 1), (31, 4), (31, 23),
 (32, 1), (32, 4), (32, 23);
+
+-- -------------------------
+-- AI Agents with Azure OpenAI & Semantic Kernel tags
+-- -------------------------
+INSERT INTO TopicTag (topic_id, tag_id) VALUES
+(33, 1), (33, 22),   -- Azure + Azure AI Foundry (portal moderno para orquestar modelos/agents)
+(34, 1), (34, 22),
+(35, 1), (35, 22),
+(36, 1), (36, 22),
+(37, 1), (37, 22);
 
 -- Study sessions
 
@@ -287,33 +307,47 @@ INSERT INTO StudySession (session_id, topic_id, started_at, ended_at, duration_m
 (26, 26, '2026-02-24 19:55:00', '2026-02-24 20:45:00', 50, 4, 3, NULL, 1, 1),
 (27, 27, '2026-02-24 20:50:00', '2026-02-24 21:40:00', 50, 4, 3, NULL, 1, 1),
 
+-- 2026-02-25
+(28, 28, '2026-02-25 23:00:00', '2026-02-25 23:50:00', 50, 4, 3, NULL, 1, 1),
+
+-- 2026-02-26
+(29, 29, '2026-02-26 23:00:00', '2026-02-26 23:40:00', 40, 4, 3, NULL, 1, 1),
+
+-- 2026-02-27
+(30, 30, '2026-02-27 00:00:00', '2026-02-27 00:50:00', 50, 4, 3, NULL, 1, 1),
+(31, 31, '2026-02-27 17:00:00', '2026-02-27 17:50:00', 50, 4, 3, NULL, 1, 1),
+(32, 32, '2026-02-27 18:00:00', '2026-02-27 18:50:00', 50, 4, 3, NULL, 1, 1),
+
+-- 2026-03-01
+(33, 33, '2026-03-01 13:00:00', '2026-03-01 13:50:00', 50, 5, 3, NULL, 1, 1),
+(34, 34, '2026-03-01 16:00:00', '2026-03-01 17:00:00', 60, 5, 3, NULL, 1, 1),
+
+-- 2026-03-02
+(35, 35, '2026-03-02 20:00:00', '2026-03-02 20:40:00', 40, 5, 3, NULL, 1, 1),
+(36, 36, '2026-03-02 21:10:00', '2026-03-02 21:50:00', 40, 5, 3, NULL, 1, 1),
+
 -- =========================
 -- PLANNED
 -- =========================
 
--- 2026-02-25
-(28, 28, '2026-02-25 19:00:00', '2026-02-25 19:50:00', 50, 4, 3, NULL, 1, 2),
-(29, 29, '2026-02-25 20:00:00', '2026-02-25 20:40:00', 40, 4, 3, NULL, 1, 2),
-(30, 30, '2026-02-25 20:50:00', '2026-02-25 21:40:00', 50, 4, 3, NULL, 1, 2),
-
--- 2026-02-26
-(31, 31, '2026-02-26 19:00:00', '2026-02-26 19:50:00', 50, 4, 3, NULL, 1, 2),
-(32, 32, '2026-02-26 20:00:00', '2026-02-26 20:50:00', 50, 4, 3, NULL, 1, 2);
+-- 2026-03-03
+(37, 37, '2026-03-03 19:00:00', '2026-03-03 19:30:00', 30, 5, 3, NULL, 1, 2);
 
 -- Practice results
 DELETE FROM PracticeResult;
 
 INSERT INTO PracticeResult (result_id, session_id, result_type_id, attempt_number, score, attempt_status_id, feedback, evidence_url, visibility_id, created_at) VALUES
-(1, 24, 1, 1, 88, 1, 'Microsoft Applied Skills: Build a natural language processing solution with Azure AI Language', 'https://learn.microsoft.com/en-us/users/rukaya/credentials/3bae28df7468e920', 1, '2026-02-23 21:30:00');
+(1, 24, 1, 1, 88, 1, 'Microsoft Applied Skills: Build a natural language processing solution with Azure AI Language', 'https://learn.microsoft.com/en-us/users/rukaya/credentials/3bae28df7468e920', 1, '2026-02-23 21:30:00'),
+(2, 32, 1, 1, 82, 1, 'Microsoft Applied Skills: Implement knowledge mining with Azure AI Search', 'https://learn.microsoft.com/api/credentials/share/en-us/Rukaya/4E8E2C669F72638', 1, '2026-02-27 19:00:00');
 
 -- Certifications
 DELETE FROM Certification;
 
 INSERT INTO Certification (certification_id, code, name, provider_id, category_id, cert_tier_id, official_url) VALUES
-(1, 'PL-400', 'Microsoft Certified: Power Platform Developer Associate', 1, 5, 2, 'https://learn.microsoft.com/api/credentials/share/en-us/Rukaya/C2CE3CE593A5D7E3?sharingId=CC0BDDAD2772AF76'),
-(2, 'AZ-204', 'Microsoft Certified: Azure Developer Associate',          1, 3, 2, 'https://learn.microsoft.com/api/credentials/share/es-es/Rukaya/2E58B6A8209C0581?sharingId=CC0BDDAD2772AF76'),
+(1, 'PL-400', 'Microsoft Certified: Power Platform Developer Associate', 1, 5, 2, 'https://learn.microsoft.com/api/credentials/share/en-us/Rukaya/C2CE3CE593A5D7E3'),
+(2, 'AZ-204', 'Microsoft Certified: Azure Developer Associate',          1, 3, 2, 'https://learn.microsoft.com/api/credentials/share/es-es/Rukaya/2E58B6A8209C0581'),
 (3, 'DVA-C02', 'AWS Certified Developer – Associate',                    3, 3, 2, 'https://www.credly.com/badges/9b66d1ee-f6c6-4424-9526-010a2375210f/public_url'),
-(4, 'AI-102',  'Microsoft Certified: Azure AI Engineer Associate',       1, 4, 2, 'https://learn.microsoft.com/api/credentials/share/en-us/Rukaya/921C08034138DABA?sharingId=CC0BDDAD2772AF76');
+(4, 'AI-102',  'Microsoft Certified: Azure AI Engineer Associate',       1, 4, 2, 'https://learn.microsoft.com/api/credentials/share/en-us/Rukaya/921C08034138DABA');
 
 -- =========================
 -- LIFE LAYER
@@ -332,7 +366,9 @@ INSERT INTO Community (community_id, name, description, website_url, visibility_
 (7, 'Women For Technical Talks (W4TT)', 'Comunidad que impulsa la participación de mujeres en carreras STEM como ponentes y profesionales técnicas.', 'https://www.women4tt.com/', 1),
 (8, 'Microsoft Techie Girls Group', 'Meetup técnico orientado a tecnologías Microsoft para capacitar talento femenino y personas no binarias en cloud, datos e IA.', 'https://www.meetup.com/es-es/microsoft-techie-girls-group/', 1),
 (9, 'Tech Riders', 'Comunidad tecnológica de Tajamar centrada en visibilidad y participación en eventos y redes.', 'https://techriders.tajamar.es/', 1),
-(10, 'Global Power Platform Bootcamp Madrid', 'Eventos internacional centrado en Power Platform, low-code, automatización e IA aplicada.', 'https://www.powerplatformbootcamp.com/', 1);
+(10, 'Global Power Platform Bootcamp Madrid', 'Eventos internacional centrado en Power Platform, low-code, automatización e IA aplicada.', 'https://www.powerplatformbootcamp.com/', 1),
+(11, 'Comunidad DLA', 'Comunidad que explora el cruce entre diseño, IA y tecnología.', 'https://www.meetup.com/comunidad-dla/', 1),
+(12, 'Global AI Community', 'Comunidad global que conecta a capítulos locales apasionados por la Inteligencia Artificial y organiza eventos como AgentCamp (antes Global AI Bootcamp) en múltiples ciudades del mundo para compartir conocimientos sobre IA, tecnologías Microsoft y experiencias de desarrollo.', 'https://globalai.community', 1);
 
 -- City + Venue
 DELETE FROM City;
@@ -347,7 +383,8 @@ INSERT INTO Venue (venue_id, name, address, city_id, notes) VALUES
 (2, 'La Nave', 'C. Cifuentes, 5, Villaverde, 28021 Madrid', 1, NULL),
 (3, 'NTT Data Spain – Novus Building', 'Cam. de la Fuente de la Mora, 1, Hortaleza, 28050 Madrid, Spain', 1, NULL),
 (4, 'Celonis SL', 'Pl. de Manuel Gómez-Moreno, 2, Tetuán, 28020 Madrid, Spain', 1, NULL),
-(5, 'Meet&Go', 'C. de Martín de Vargas, 23, Arganzuela, 28005 Madrid, Spain', 1, NULL);
+(5, 'Meet&Go', 'C. de Martín de Vargas, 23, Arganzuela, 28005 Madrid, Spain', 1, NULL),
+(6, 'Universidad CEU San Pablo – Escuela Politécnica Superior', 'Av. de Montepríncipe, s/n, 28668 Boadilla del Monte, Madrid, Spain', 1, NULL);
 
 -- Event
 DELETE FROM Event;
@@ -358,7 +395,10 @@ INSERT INTO Event (event_id, name, community_id, venue_id, starts_at, ends_at, l
 (3, 'Season of AI – MCP by AzureBrains', 3, 3, '2026-01-29 18:30:00', '2026-01-29 19:30:00', 'Spanish', 'https://www.meetup.com/azurebrains/events/312537177/', 1),
 (4, 'Fintech CONF 2026', 4, 4, '2026-01-28 18:45:00', '2026-01-28 21:30:00', 'Spanish', 'https://luma.com/soyngnfn?tk=dHq7fr', 1),
 (5, 'Con licencia para razonar: IA al estilo 007', 5, 5, '2026-01-21 18:30:00', '2026-01-21 20:30:00', 'Spanish', 'https://www.meetup.com/es-ES/meetup-de-innoit-consulting-en-madrid/events/312499540/', 1),
-(6, 'Global Power Platform Bootcamp Madrid 2026', 10, 3, '2026-02-14 09:00:00', '2026-02-14 18:00:00', 'Spanish', 'https://www.eventbrite.es/e/entradas-global-power-platform-bootcamp-madrid-2026-1981590026111', 1);
+(6, 'Global Power Platform Bootcamp Madrid 2026', 10, 3, '2026-02-14 09:00:00', '2026-02-14 18:00:00', 'Spanish', 'https://www.eventbrite.es/e/entradas-global-power-platform-bootcamp-madrid-2026-1981590026111', 1),
+(7, 'Tu media alcachofa laboral: cómo hacer match con tu próximo trabajo (sin drama)', 4, 4, '2026-02-25 18:45:00', '2026-02-25 21:30:00', 'Spanish', 'https://luma.com/w3z30nui?tk=kExEWQ', 1),
+(8, 'SESSION[ONE]: El futuro de la IA', 11, 4, '2026-02-20 18:30:00', '2026-02-20 21:00:00', 'Spanish', 'https://luma.com/g66al629?locale=es', 1),
+(9, 'AgentCamp 2026 – Madrid', 12, 6, '2026-02-28 08:30:00', '2026-02-28 18:00:00', 'Spanish', 'https://www.eventbrite.es/e/entradas-agentcamp-2026-madrid-aka-global-ai-bootcamp-1980480271806', 1);
 
 -- Role catalog
 DELETE FROM Role;
@@ -377,13 +417,17 @@ INSERT INTO EventParticipation (participation_id, person_name, event_id, role_id
 (3, 'Rukaya Masmoudi Messaoud', 3, 3, 'Supported promotion and community engagement for the meetup.', 1),
 (4, 'Rukaya Masmoudi Messaoud', 4, 1, 'Attended as participant.', 1),
 (5, 'Rukaya Masmoudi Messaoud', 5, 1, 'Attended as participant.', 1),
-(6, 'Rukaya Masmoudi Messaoud', 6, 1, 'Attended as participant.', 1);
+(6, 'Rukaya Masmoudi Messaoud', 6, 1, 'Attended as participant.', 1),
+(7, 'Rukaya Masmoudi Messaoud', 7, 1, 'Attended as participant.', 1),
+(8, 'Rukaya Masmoudi Messaoud', 8, 2, 'Speaker en la sesión de novedades de Microsoft con foco en Microsoft Foundry.', 1),
+(9, 'Rukaya Masmoudi Messaoud', 9, 1, 'Attended as participant.', 1);
 
 -- Your contribution
 DELETE FROM Contribution;
 
 INSERT INTO Contribution (contribution_id, event_id, type, title, description, starts_at, ends_at, visibility_id) VALUES
-(1, 2, 'talk', 'Ser visible para poder existir: Out in Tech, identidad, resiliencia y crecimiento profesional', 'Tech Career Stories Room (Sala 7) — Charla 5. Shared with Patricia Rodríguez Vaquero.', '2026-02-04 11:40:00', '2026-02-04 11:55:00', 1);
+(1, 2, 'talk', 'Ser visible para poder existir: Out in Tech, identidad, resiliencia y crecimiento profesional', 'Tech Career Stories Room (Sala 7) — Charla 5. Shared with Patricia Rodríguez Vaquero.', '2026-02-04 11:40:00', '2026-02-04 11:55:00', 1),
+(2, 8, 'talk', 'Novedades de Microsoft en IA: Microsoft Foundry', 'Sesión dentro de SESSION[ONE]: El futuro de la IA, centrada en las novedades de Microsoft, AWS y Google', '2026-02-26 19:30:00', '2026-02-26 20:00:00', 1);
 
 -- Media assets
 DELETE FROM MediaAsset;
@@ -398,7 +442,11 @@ INSERT INTO MediaAsset (asset_id, asset_type, taken_at, storage_ref, caption, vi
 (7, 'IMAGE', '2026-02-23 23:30:00', 'docs/assets/certifications/applied-skills/applied-skills-azure-ai-language.jpg', 'Microsoft Applied Skills: Build a natural language processing solution with Azure AI Language', 1),
 (8, 'IMAGE', '2024-01-15 12:00:00', 'docs/assets/certifications/pl-400-badge.jpg', 'Microsoft Certified: Power Platform Developer Associate (PL-400).', 1),
 (9, 'IMAGE', '2024-03-10 12:00:00', 'docs/assets/certifications/az-204-badge.jpg', 'Microsoft Certified: Azure Developer Associate (AZ-204).', 1),
-(10, 'IMAGE', '2024-09-01 12:00:00', 'docs/assets/certifications/ai-102-badge.jpg', 'Microsoft Certified: Azure AI Engineer Associate (AI-102).', 1);
+(10, 'IMAGE', '2024-09-01 12:00:00', 'docs/assets/certifications/ai-102-badge.jpg', 'Microsoft Certified: Azure AI Engineer Associate (AI-102).', 1),
+(11, 'PHOTO', '2026-02-25 19:30:00', 'docs/assets/events/tu-media-alcachofa-laboral-cover.jpg', 'Evento "Tu media alcachofa laboral" organizado por Arcasiles en Celonis (Madrid).', 1),
+(12, 'IMAGE', '2026-02-23 23:30:00', 'docs/assets/certifications/applied-skills/applied-skills-ai-search.jpg', 'Microsoft Applied Skills: Implement knowledge mining with Azure AI Search', 1),
+(13, 'PHOTO', '2026-02-26 19:30:00', 'docs/assets/events/session-one-futuro-ia-cover.jpg', 'Charla sobre novedades de Microsoft (Azure AI Foundry) en SESSION[ONE]: El futuro de la IA – Comunidad DLA en Celonis (Madrid).', 1),
+(14, 'PHOTO', '2026-02-28 15:30:00', 'docs/assets/events/agentcamp-2026-madrid-cover.jpg', 'Asistencia a AgentCamp 2026 – Madrid (Global AI Bootcamp) enfocado en IA aplicada con tecnologías Microsoft.', 1);
 
 -- Event ↔ Media links
 DELETE FROM EventMedia;
@@ -409,13 +457,17 @@ INSERT INTO EventMedia (event_id, asset_id, is_cover) VALUES
 (3, 3, 1),
 (4, 4, 1),
 (5, 5, 1),
-(6, 6, 1);
+(6, 6, 1),
+(7, 11, 1),
+(8, 13, 1),
+(9, 14, 1);
 
 -- PracticeResult ↔ Media links
 DELETE FROM PracticeResultMedia;
 
 INSERT INTO PracticeResultMedia (result_id, asset_id) VALUES 
-(1, 7);
+(1, 7),
+(2, 12);
 
 -- Certification ↔ Media links
 DELETE FROM CertificationMedia;
@@ -429,9 +481,11 @@ INSERT INTO CertificationMedia (certification_id, asset_id) VALUES
 DELETE FROM Post;
 
 INSERT INTO Post (post_id, platform, url, published_at, title, notes, visibility_id) VALUES
-(1, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_alcachofas-activity-7422911684425674752-jhbi?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI', '2026-01-30 10:00:00', 'Post en LinkedIn sobre Fintech CONF 2026 (Arcasiles)', 'Publicación en LinkedIn comentando la experiencia en Fintech CONF 2026 organizado por Arcasiles en las oficinas de Celonis (Madrid).', 1),
-(2, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_el-mi%C3%A9rcoles-estuve-en-el-meetup-con-licencia-activity-7421114622314704897-SYqr?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI', '2026-01-23 10:00:00', 'Post en LinkedIn sobre el meetup "Con licencia para razonar: IA al estilo 007"', 'Publicación en LinkedIn resumiendo la charla de Celeste Tania Sánchez Fresneda sobre agentes de IA al estilo James Bond en el meetup de InnoIT Consulting.', 1),
-(3, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_powerplatform-gppb2026-community-activity-7432008948150452224-iJAW?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEAMnmQByJUnEXTUyWJqTyUlfPm1itelPDI', '2026-02-23 11:30:00', 'Post en LinkedIn sobre el Global Power Platform Bootcamp Madrid 2026', 'Publicación en LinkedIn contando la experiencia en el Global Power Platform Bootcamp Madrid 2026, destacando sesiones y el ambiente de comunidad.', 1);
+(1, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_alcachofas-activity-7422911684425674752-jhbi', '2026-01-30 10:00:00', 'Post en LinkedIn sobre Fintech CONF 2026 (Arcasiles)', 'Publicación en LinkedIn comentando la experiencia en Fintech CONF 2026 organizado por Arcasiles en las oficinas de Celonis (Madrid).', 1),
+(2, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_el-mi%C3%A9rcoles-estuve-en-el-meetup-con-licencia-activity-7421114622314704897-SYqr', '2026-01-23 10:00:00', 'Post en LinkedIn sobre el meetup "Con licencia para razonar: IA al estilo 007"', 'Publicación en LinkedIn resumiendo la charla de Celeste Tania Sánchez Fresneda sobre agentes de IA al estilo James Bond en el meetup de InnoIT Consulting.', 1),
+(3, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_powerplatform-gppb2026-community-activity-7432008948150452224-iJAWI', '2026-02-23 11:30:00', 'Post en LinkedIn sobre el Global Power Platform Bootcamp Madrid 2026', 'Publicación en LinkedIn contando la experiencia en el Global Power Platform Bootcamp Madrid 2026, destacando sesiones y el ambiente de comunidad.', 1),
+(4, 'LinkedIn', 'https://www.linkedin.com/posts/rukaya-masmoudi_comunidadtech-crecimientoprofesional-networking-activity-7432726168069484546-wzbL', '2026-02-26 11:00:00', 'Post en LinkedIn sobre "Tu media alcachofa laboral" (Arcasiles)', 'Publicación en LinkedIn sobre el evento "Tu media alcachofa laboral: cómo hacer match con tu próximo trabajo (sin drama)" organizado por Arcasiles en Celonis.', 1),
+(5, 'LinkedIn',  'https://www.linkedin.com/posts/rukaya-masmoudi_microsoft-aws-google-activity-7433435871099580418-DMKo', '2026-02-28 11:00:00', 'Post en LinkedIn sobre SESSION[ONE]: El futuro de la IA (Comunidad DLA)', 'Publicación en LinkedIn resumiendo la sesión de novedades de Microsoft, AWS y Google en SESSION[ONE]: El futuro de la IA organizada por Comunidad DLA en Celonis.', 1);
 
 -- Link Event ↔ Post
 DELETE FROM EventPost;
@@ -439,9 +493,15 @@ DELETE FROM EventPost;
 INSERT INTO EventPost (event_id, post_id) VALUES
 (4, 1),
 (5, 2),
-(6, 3); 
+(6, 3),
+(7, 4),
+(8, 5);
 
 -- Organizations (companies / educational centers)
+DELETE FROM Organization;
+DELETE FROM EngagementType;
+DELETE FROM Engagement;
+
 INSERT INTO Organization (organization_id, name, org_type, website_url, city_id, description, visibility_id) VALUES
 (1, 'Tajamar', 'education', 'https://tajamar.es/', 1, 'Centro educativo', 1),
 (2, 'Linkia', 'education', 'https://linkiafp.es/', 1, 'Centro educativo', 1),
@@ -693,6 +753,22 @@ INSERT INTO Reflection (
   9,
   '2024-11-15 21:00:00',
   'Microsoft Techie Girls Group me conecta con el tipo de comunidad que quería encontrar cuando empecé: técnica, cercana y con referentes femeninos.',
+  1
+),
+(
+  25,
+  'EVENT',
+  7,
+  '2026-02-25 23:00:00',
+  'El evento de la media alcachofa laboral me hizo ver lo importante que es encajar con una empresa más allá del CV: valores, ambiente y personas.',
+  1
+),
+(
+  26,
+  'EVENT',
+  8,
+  '2026-02-26 23:00:00',
+  'En SESSION[ONE]: El futuro de la IA, presentar la parte de Microsoft (Microsoft Foundry) me hizo sentir que por fin empiezo a estar en ese tipo de conversaciones de primera línea.',
   1
 );
 
@@ -1079,6 +1155,36 @@ INSERT INTO ReflectionAnalysis (
   0,
   1,
   '2024-11-15 21:05:00'
+),
+(
+  25,
+  25,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.90,
+  0.08,
+  0.02,
+  'Tu media alcachofa laboral,match laboral,empresa adecuada,valores,personas',
+  'community',
+  0,
+  1,
+  '2026-02-25 23:05:00'
+),
+(
+  26,
+  26,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.91,
+  0.07,
+  0.02,
+  'SESSION[ONE],novedades de Microsoft,Microsoft Foundry,IA,conversaciones de primera línea',
+  'community',
+  0,
+  1,
+  '2026-02-26 23:05:00'
 );
 
 -- =========================
@@ -1136,4 +1242,6 @@ INSERT INTO ReflectionLabelAssignment (reflection_id, label_id) VALUES
 (21, 6), (21, 9), (21, 7),             -- career + leadership + resilience
 (22, 5), (22, 8),                      -- community + identity
 (23, 5), (23, 8),                      -- community + identity
-(24, 5), (24, 8), (24, 3);             -- community + identity + azure
+(24, 5), (24, 8), (24, 3),             -- community + identity + azure
+(25, 5), (25, 8),                      -- community + identity
+(26, 5), (26, 3), (26, 12);            -- community + azure + AI agents

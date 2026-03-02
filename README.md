@@ -103,6 +103,10 @@ Run:
 - db/queries/20_portfolio_search_by_text.sql  
 - db/queries/21_portfolio_filter_by_type.sql
 
+For search index design details:
+
+- docs/intelligence/azure-ai-search-index-design.md
+
 ---
 
 ## Current scope
@@ -163,4 +167,7 @@ It stores and exposes the resulting signals as structured data.
 
 ### Portfolio Search
 
-- Portfolio Search base view (`v_portfolio_search_items`) unifying Studies, Life, Career, and Reflections.
+- Knowledge mining (design-level):
+  - Portfolio Search base view (`v_portfolio_search_items`)
+  - Azure AI Search index design documented in:
+    - `docs/intelligence/azure-ai-search-index-design.md`
