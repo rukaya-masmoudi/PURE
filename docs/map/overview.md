@@ -115,6 +115,9 @@ What is active today (Signal Intelligence v1):
   - JSONL contract
   - offline ingestion tool
 
+- Azure AI Search index design (spec only):
+  - documented in docs/intelligence/azure-ai-search-index-design.md
+
 Not implemented yet (reserved for later phases):
 
 - RAG over PURE data
