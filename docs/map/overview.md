@@ -118,6 +118,13 @@ What is active today (Signal Intelligence v1):
 - Azure AI Search index design (spec only):
   - documented in docs/intelligence/azure-ai-search-index-design.md
 
+- Generative Layer (Design phase):
+  - PURE Assistant v0
+  - Architecture defined in:
+    - `docs/intelligence/generative-layer-design.md`
+  - No embeddings or agents yet
+  - Read-only over structured PUBLIC data
+
 Not implemented yet (reserved for later phases):
 
 - RAG over PURE data
