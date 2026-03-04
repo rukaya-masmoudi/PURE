@@ -770,6 +770,30 @@ INSERT INTO Reflection (
   '2026-02-26 23:00:00',
   'En SESSION[ONE]: El futuro de la IA, presentar la parte de Microsoft (Microsoft Foundry) me hizo sentir que por fin empiezo a estar en ese tipo de conversaciones de primera línea.',
   1
+),
+(
+  27,
+  'SYSTEM',
+  0,
+  '2026-03-02 22:30:00',
+  'PURE me está obligando a mirar mi trayectoria como un sistema y no como una lista de logros. Cada estudio, cada evento y cada trabajo es un dato que cuenta una historia completa, no un punto suelto.',
+  1
+),
+(
+  28,
+  'SYSTEM',
+  0,
+  '2026-03-02 22:40:00',
+  'Tener NLP, conocimiento estructurado y un asistente generativo en el mismo sistema me hace sentir que por fin estoy construyendo lo que siempre he querido: una arquitectura de IA aplicada a mi propia vida profesional.',
+  1
+),
+(
+  29,
+  'SYSTEM',
+  0,
+  '2026-03-02 22:50:00',
+  'Lo siguiente para PURE no es añadir más “magia de IA”, sino asegurarse de que todo lo que ya tengo es responsable, seguro y gobernado. Prefiero un sistema pequeño pero sólido a algo grande y frágil.',
+  1
 );
 
 -- =========================
@@ -1185,6 +1209,51 @@ INSERT INTO ReflectionAnalysis (
   0,
   1,
   '2026-02-26 23:05:00'
+),
+(
+  27,
+  27,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.91,
+  0.07,
+  0.02,
+  'PURE,sistema,datos,trayectoria,historia completa',
+  'identity',
+  0,
+  1,
+  '2026-03-02 22:31:00'
+),
+(
+  28,
+  28,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.92,
+  0.06,
+  0.02,
+  'NLP,conocimiento estructurado,asistente generativo,arquitectura de IA,vida profesional',
+  'identity',
+  0,
+  1,
+  '2026-03-02 22:41:00'
+),
+(
+  29,
+  29,
+  'azure-ai-language',
+  'es',
+  'positive',
+  0.90,
+  0.08,
+  0.02,
+  'PURE,IA responsable,seguridad,gobernanza,sistema sólido',
+  'career',
+  0,
+  1,
+  '2026-03-02 22:51:00'
 );
 
 -- =========================
@@ -1244,4 +1313,8 @@ INSERT INTO ReflectionLabelAssignment (reflection_id, label_id) VALUES
 (23, 5), (23, 8),                      -- community + identity
 (24, 5), (24, 8), (24, 3),             -- community + identity + azure
 (25, 5), (25, 8),                      -- community + identity
-(26, 5), (26, 3), (26, 12);            -- community + azure + AI agents
+(26, 5), (26, 3), (26, 12),            -- community + azure + AI agents
+(27, 8), (27, 6), (27, 1),             -- identity + career-growth + foundations
+(28, 4), (28, 12), (28, 3),            -- nlp + ai-agents + azure
+(29, 6), (29, 7), (29, 8);             -- career-growth + resilience + identity
+

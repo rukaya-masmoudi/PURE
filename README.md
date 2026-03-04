@@ -171,3 +171,35 @@ It stores and exposes the resulting signals as structured data.
   - Portfolio Search base view (`v_portfolio_search_items`)
   - Azure AI Search index design documented in:
     - `docs/intelligence/azure-ai-search-index-design.md`
+
+### Generative Layer (Design)
+
+PURE Assistant v0 is architecturally defined:
+
+- Reads structured data from SQLite
+- Uses Semantic Kernel as prompt orchestrator
+- Uses Azure OpenAI for generation
+- Fully governed and read-only
+
+Design document:
+
+- docs/intelligence/generative-layer-design.md
+
+### PURE Assistant v0 (skeleton)
+
+A first, local-only assistant is available under:
+
+- `assistant/`
+
+It:
+
+- reads PUBLIC data from the SQLite database
+- builds a JSON context from:
+  - `v_portfolio_search_items`
+  - `v_reflection_signals`
+- uses Semantic Kernel + Azure OpenAI (via env vars) to generate answers
+- is read-only and fully governed
+
+For execution instructions, see:
+
+- docs/intelligence/pure-assistant-usage.md

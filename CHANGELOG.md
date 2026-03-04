@@ -2,6 +2,28 @@
 
 All notable changes to PURE will be documented here.
 
+## [0.1.9] - 2026-03-03
+### Added
+- Generative Layer design:
+  - `docs/intelligence/generative-layer-design.md`
+  - PURE Assistant v0 architecture specification
+- Intelligence map updated to include Generative Layer (design phase)
+- PURE Assistant v0 skeleton:
+  - `assistant/db_access.py` to read PUBLIC data from SQLite (`v_portfolio_search_items`, `v_reflection_signals`)
+  - `assistant/kernel_setup.py` to configure Semantic Kernel with Azure OpenAI via environment variables
+  - `assistant/prompts/answer_about_portfolio.skprompt.txt` as the main semantic prompt
+  - `assistant/pure_assistant_cli.py` as a minimal local CLI entry point
+- Documentation updates:
+  - `docs/intelligence/generative-layer-design.md` now references the assistant implementation skeleton
+  - Root `README` updated with Generative Layer overview and to mention PURE Assistant v0 (skeleton) and updated to reference execution documentation
+- PURE Assistant v0 usage documentation:
+  - `docs/intelligence/pure-assistant-usage.md`
+  - installation guide
+  - environment variable setup
+  - CLI execution examples
+  - governance and limitations documented
+- `assistant/README.md` updated to reference usage guide
+
 ## [0.1.8] - 2026-03-02
 ### Added
 - Azure AI Search index design (spec only):
